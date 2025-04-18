@@ -1,0 +1,44 @@
+
+<h1>
+  <a [routerLink]="getListLink()">Project</a> /
+  <a [routerLink]="getDetailLink(entity?.id)">{{ entity?.name }}</a> /
+  <ng-container *ngIf="mode === 1">Create</ng-container>
+  <ng-container *ngIf="mode === 2">Update</ng-container>
+  <ng-container *ngIf="mode === 3">Delete</ng-container>
+</h1>
+
+<fusio-message [response]="response"></fusio-message>
+
+<form *ngIf="entity">
+  <div class="mb-3 row">
+    <label for="name" class="col-sm-2 col-form-label fw-bold">Name</label>
+    <div class="col-sm-10">
+      <div class="input-group">
+        <input type="text" id="name" name="name" [(ngModel)]="entity.name" [disabled]="mode === 3" class="form-control">
+        <button class="btn btn-outline-secondary" type="button" [ngbPopover]="nameHelp"><i class="bi bi-question"></i></button>
+        <ng-template #nameHelp>Unique name of the action</ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="preset" class="col-sm-2 col-form-label fw-bold">Preset</label>
+    <div class="col-sm-10">
+      <select id="preset" name="preset" [(ngModel)]="type" (ngModelChange)="loadPreset()" class="form-select">
+        <option [ngValue]="undefined">Custom</option>
+        <option ngValue="fusio">Fusio</option>
+        <option ngValue="wordpress">Wordpress</option>
+      </select>
+    </div>
+  </div>
+
+  <ng-container *ngIf="entity.apps">
+    <app-project-apps [apps]="entity.apps" (dataChange)="entity.apps = $event"></app-project-apps>
+  </ng-container>
+  <div class="btn-group" role="group">
+    <ng-container *ngIf="mode === 1"><button type="button" class="btn btn-primary" (click)="doCreate(entity)">Create</button></ng-container>
+    <ng-container *ngIf="mode === 2"><button type="button" class="btn btn-primary" (click)="doUpdate(entity)">Update</button></ng-container>
+    <ng-container *ngIf="mode === 3"><button type="button" class="btn btn-danger" (click)="doDelete(entity)">Delete</button></ng-container>
+  </div>
+</form>
+
+<pre>{{entity|json}}</pre>

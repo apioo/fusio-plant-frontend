@@ -1,0 +1,38 @@
+
+<h1>Project</h1>
+
+<fusio-message [response]="response"></fusio-message>
+
+<fusio-search
+  [searchTerm]="search"
+  (search)="doSearch(1, $event)"
+  (newClick)="router.navigate(getNewLink())"
+  placeholder="project">
+</fusio-search>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th style="width:100px"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let entry of entries">
+    <td>{{entry.name}}</td>
+    <td>
+      <div class="btn-group" role="group">
+        <a [routerLink]="getDetailLink(entry.id)" class="btn btn-primary"><i class="bi bi-search"></i></a>
+        <a [routerLink]="getEditLink(entry.id)" class="btn btn-secondary"><i class="bi bi-pen"></i></a>
+        <a [routerLink]="getDeleteLink(entry.id)" class="btn btn-danger"><i class="bi bi-x"></i></a>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<ngb-pagination
+  [(page)]="page"
+  [pageSize]="pageSize"
+  [collectionSize]="totalResults"
+  [maxSize]="4"
+  [ellipses]="false"
+  (pageChange)="doSearch($event)"></ngb-pagination>

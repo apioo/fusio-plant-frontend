@@ -1,0 +1,71 @@
+
+<div *ngFor="let app of apps; index as appIndex" class="mb-3">
+  <hr>
+  <div class="mb-3 row">
+    <label for="name" class="col-sm-2 col-form-label fw-bold">Name</label>
+    <div class="col-sm-10">
+      <div class="input-group">
+        <input type="text" id="name" name="name" [(ngModel)]="app.name" class="form-control">
+        <button class="btn btn-outline-secondary" type="button" [ngbPopover]="nameHelp"><i class="bi bi-question"></i></button>
+        <ng-template #nameHelp>Unique name of the action</ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="name" class="col-sm-2 col-form-label fw-bold">Image</label>
+    <div class="col-sm-10">
+      <div class="input-group">
+        <input type="text" id="image" name="image" [(ngModel)]="app.image" class="form-control">
+        <button class="btn btn-outline-secondary" type="button" [ngbPopover]="imageHelp"><i class="bi bi-question"></i></button>
+        <ng-template #imageHelp>Unique name of the action</ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="domains" class="col-sm-2 col-form-label fw-bold">Domains</label>
+    <div class="col-sm-10">
+      <fusio-form-list id="domains" name="domains" [ngModel]="app.domains" (dataChange)="app.domains = $event"></fusio-form-list>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="cache" class="col-sm-2 col-form-label fw-bold">Cache</label>
+    <div class="col-sm-10">
+      <div class="form-check form-switch">
+        <input id="cache" name="cache" [(ngModel)]="app.cache" type="checkbox" role="switch" class="form-check-input">
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="name" class="col-sm-2 col-form-label fw-bold">Port</label>
+    <div class="col-sm-10">
+      <div class="input-group">
+        <input type="number" id="port" name="port" [(ngModel)]="app.port" class="form-control">
+        <button class="btn btn-outline-secondary" type="button" [ngbPopover]="portHelp"><i class="bi bi-question"></i></button>
+        <ng-template #portHelp>Unique name of the action</ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="environment" class="col-sm-2 col-form-label fw-bold">Environment</label>
+    <div class="col-sm-10">
+      <fusio-form-map id="environment" name="environment" [ngModel]="app.environment" (dataChange)="app.environment = $event"></fusio-form-map>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="volumes" class="col-sm-2 col-form-label fw-bold">Volumes</label>
+    <div class="col-sm-10">
+      <!-- <fusio-form-list id="volumes" name="volumes" [ngModel]="app.volumes" (dataChange)="app.volumes = $event"></fusio-form-list> -->
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="links" class="col-sm-2 col-form-label fw-bold">Links</label>
+    <div class="col-sm-10">
+      <fusio-form-list id="links" name="links" [ngModel]="app.links" (dataChange)="app.links = $event"></fusio-form-list>
+    </div>
+  </div>
+  <button (click)="remove(appIndex)" class="btn btn-danger">Remove App</button>
+</div>
+
+<button (click)="add()" class="btn btn-success">Add App</button>
+
+<hr>

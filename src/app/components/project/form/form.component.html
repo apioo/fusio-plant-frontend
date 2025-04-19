@@ -23,14 +23,12 @@
   <div class="mb-3 row">
     <label for="preset" class="col-sm-2 col-form-label fw-bold">Preset</label>
     <div class="col-sm-10">
-      <select id="preset" name="preset" [(ngModel)]="type" (ngModelChange)="loadPreset()" class="form-select">
+      <select id="preset" name="preset" [(ngModel)]="preset" (ngModelChange)="loadPreset()" class="form-select">
         <option [ngValue]="undefined">Custom</option>
-        <option ngValue="fusio">Fusio</option>
-        <option ngValue="wordpress">Wordpress</option>
+        <option *ngFor="let preset of presets" [ngValue]="preset.name">{{ preset.displayName }}</option>
       </select>
     </div>
   </div>
-
   <ng-container *ngIf="entity.apps">
     <app-project-apps [apps]="entity.apps" (dataChange)="entity.apps = $event"></app-project-apps>
   </ng-container>

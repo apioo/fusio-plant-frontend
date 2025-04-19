@@ -10,6 +10,7 @@ import {ClientException, UnknownStatusCodeException} from "sdkgen-client";
 import {AuthorizationTag} from "./AuthorizationTag";
 import {ConsumerTag} from "./ConsumerTag";
 import {MetaTag} from "./MetaTag";
+import {PresetTag} from "./PresetTag";
 import {ProjectTag} from "./ProjectTag";
 import {SystemTag} from "./SystemTag";
 
@@ -38,6 +39,14 @@ export class Client extends ClientAbstract {
         );
     }
 
+    public preset(): PresetTag
+    {
+        return new PresetTag(
+            this.httpClient,
+            this.parser
+        );
+    }
+
     public project(): ProjectTag
     {
         return new ProjectTag(
@@ -59,6 +68,6 @@ export class Client extends ClientAbstract {
 
     public static buildAnonymous(): Client
     {
-        return new Client('http://127.0.0.1/projects/fusio-projects/plant/public/', new Anonymous());
+        return new Client('http://127.0.0.1/projects/fusio-projects/plant/backend/public/', new Anonymous());
     }
 }

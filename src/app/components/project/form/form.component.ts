@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ErrorService, Form} from "ngx-fusio-sdk";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProjectService} from "../../../services/project.service";
@@ -14,7 +14,10 @@ import {Preset} from "../../../generated/Preset";
 export class FormComponent extends Form<Project> {
 
   preset?: string;
+  variant?: string;
   presets?: Array<Preset>;
+  variants?: Array<Preset>;
+  active?: number;
 
   constructor(private service: ProjectService, private api: ApiService, route: ActivatedRoute, router: Router, error: ErrorService) {
     super(route, router, error);
@@ -30,12 +33,50 @@ export class FormComponent extends Form<Project> {
   }
 
   async loadPreset() {
-    if (!this.entity || !this.preset) {
+    const selectedPreset = this.preset;
+    if (!this.entity || !selectedPreset) {
       return;
     }
 
-    const preset = await this.api.getClient().preset().get(this.preset)
+    const preset = await this.api.getClient().preset().get(selectedPreset)
     this.entity.apps = preset.apps;
+
+    const selected = this.getSelectedPreset();
+    if (selected) {
+      const variants: Array<Preset> = [];
+      this.presets?.forEach((preset) => {
+        if (selected.displayName && preset.displayName?.startsWith(selected.displayName + '-')) {
+          variants.push(preset);
+        }
+      });
+      this.variants = variants;
+    }
+
+    this.variant = selectedPreset;
+    this.active = 0;
+  }
+
+  async loadVariant() {
+    const selectedVariant = this.variant;
+    if (!this.entity || !selectedVariant) {
+      return;
+    }
+
+    const preset = await this.api.getClient().preset().get(selectedVariant)
+    this.entity.apps = preset.apps;
+
+    this.active = 0;
+  }
+
+  private getSelectedPreset(): Preset|undefined {
+    let result: Preset|undefined = undefined;
+    this.presets?.forEach((preset) => {
+      if (preset.name === this.preset) {
+        result = preset;
+      }
+    });
+
+    return result;
   }
 
 }

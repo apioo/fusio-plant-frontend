@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ProjectApp} from "../../../generated/ProjectApp";
 import {FormsModule} from "@angular/forms";
-import {NgForOf} from "@angular/common";
-import {NgbPopover} from "@ng-bootstrap/ng-bootstrap";
+import {JsonPipe, NgForOf, NgIf} from "@angular/common";
+import {NgbNav, NgbNavContent, NgbNavItem, NgbNavLinkButton, NgbNavOutlet, NgbPopover} from "@ng-bootstrap/ng-bootstrap";
 import {FusioSdkModule} from "ngx-fusio-sdk";
 
 @Component({
@@ -12,7 +12,14 @@ import {FusioSdkModule} from "ngx-fusio-sdk";
     FormsModule,
     NgForOf,
     NgbPopover,
-    FusioSdkModule
+    FusioSdkModule,
+    NgbNav,
+    NgbNavItem,
+    NgbNavLinkButton,
+    NgbNavContent,
+    NgbNavOutlet,
+    JsonPipe,
+    NgIf
   ],
   templateUrl: './apps.component.html',
   styleUrl: './apps.component.css'
@@ -21,11 +28,21 @@ export class AppsComponent {
 
   @Input() apps!: Array<ProjectApp>
   @Output() dataChange = new EventEmitter<Array<ProjectApp>>();
+  @Input() active?: number;
 
   add() {
-    this.apps.push({
-      name: 'app-' + (this.apps.length + 1)
+    const length = this.apps.push({
+      name: 'app-' + (this.apps.length + 1),
+      image: '',
+      domains: [],
+      cache: false,
+      port: 80,
+      environment: {},
+      volumes: [],
+      links: [],
     });
+
+    this.active = length - 1;
 
     this.dataChange.emit(this.apps);
   }
@@ -34,16 +51,8 @@ export class AppsComponent {
     this.apps.splice(index, 1);
 
     this.dataChange.emit(this.apps);
-  }
 
-  getAllApps(): Array<string> {
-    const appNames: Array<string> = [];
-    this.apps.forEach((app) => {
-      if (app.name) {
-        appNames.push(app.name);
-      }
-    });
-    return appNames;
+    this.active = this.apps.length - 1;
   }
 
 }

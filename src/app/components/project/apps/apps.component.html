@@ -1,71 +1,70 @@
 
-<div *ngFor="let app of apps; index as appIndex" class="mb-3">
-  <hr>
-  <div class="mb-3 row">
-    <label for="name" class="col-sm-2 col-form-label fw-bold">Name</label>
-    <div class="col-sm-10">
-      <div class="input-group">
-        <input type="text" id="name" name="name" [(ngModel)]="app.name" class="form-control">
-        <button class="btn btn-outline-secondary" type="button" [ngbPopover]="nameHelp"><i class="bi bi-question"></i></button>
-        <ng-template #nameHelp>Unique name of the action</ng-template>
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+  <li [ngbNavItem]="appIndex" *ngFor="let app of apps; index as appIndex">
+    <button ngbNavLink>
+      {{ app.name }}
+      <span class="btn-close ms-3 fw-light" (click)="remove(appIndex)"></span>
+    </button>
+    <ng-template ngbNavContent>
+      <div class="mb-3 row mt-3">
+        <label for="name_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Name</label>
+        <div class="col-sm-10">
+          <div class="input-group">
+            <input type="text" id="name_{{ appIndex }}" name="name_{{ appIndex }}" [(ngModel)]="app.name" class="form-control">
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="name" class="col-sm-2 col-form-label fw-bold">Image</label>
-    <div class="col-sm-10">
-      <div class="input-group">
-        <input type="text" id="image" name="image" [(ngModel)]="app.image" class="form-control">
-        <button class="btn btn-outline-secondary" type="button" [ngbPopover]="imageHelp"><i class="bi bi-question"></i></button>
-        <ng-template #imageHelp>Unique name of the action</ng-template>
+      <div class="mb-3 row">
+        <label for="image_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Image</label>
+        <div class="col-sm-10">
+          <div class="input-group">
+            <input type="text" id="image_{{ appIndex }}" name="image_{{ appIndex }}" [(ngModel)]="app.image" class="form-control">
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="domains" class="col-sm-2 col-form-label fw-bold">Domains</label>
-    <div class="col-sm-10">
-      <fusio-form-list id="domains" name="domains" [ngModel]="app.domains" (dataChange)="app.domains = $event"></fusio-form-list>
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="cache" class="col-sm-2 col-form-label fw-bold">Cache</label>
-    <div class="col-sm-10">
-      <div class="form-check form-switch">
-        <input id="cache" name="cache" [(ngModel)]="app.cache" type="checkbox" role="switch" class="form-check-input">
+      <div class="mb-3 row">
+        <label for="domains_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Domains</label>
+        <div class="col-sm-10" *ngIf="app.domains">
+          <fusio-form-list id="domains_{{ appIndex }}" name="domains_{{ appIndex }}" [data]="app.domains" (dataChange)="app.domains = $event"></fusio-form-list>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="name" class="col-sm-2 col-form-label fw-bold">Port</label>
-    <div class="col-sm-10">
-      <div class="input-group">
-        <input type="number" id="port" name="port" [(ngModel)]="app.port" class="form-control">
-        <button class="btn btn-outline-secondary" type="button" [ngbPopover]="portHelp"><i class="bi bi-question"></i></button>
-        <ng-template #portHelp>Unique name of the action</ng-template>
+      <div class="mb-3 row">
+        <label for="cache_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Cache</label>
+        <div class="col-sm-10">
+          <div class="form-check form-switch">
+            <input id="cache_{{ appIndex }}" name="cache_{{ appIndex }}" [(ngModel)]="app.cache" type="checkbox" role="switch" class="form-check-input">
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="environment" class="col-sm-2 col-form-label fw-bold">Environment</label>
-    <div class="col-sm-10">
-      <fusio-form-map id="environment" name="environment" [ngModel]="app.environment" (dataChange)="app.environment = $event"></fusio-form-map>
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="volumes" class="col-sm-2 col-form-label fw-bold">Volumes</label>
-    <div class="col-sm-10">
-      <!-- <fusio-form-list id="volumes" name="volumes" [ngModel]="app.volumes" (dataChange)="app.volumes = $event"></fusio-form-list> -->
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="links" class="col-sm-2 col-form-label fw-bold">Links</label>
-    <div class="col-sm-10">
-      <fusio-form-list id="links" name="links" [ngModel]="app.links" (dataChange)="app.links = $event"></fusio-form-list>
-    </div>
-  </div>
-  <button (click)="remove(appIndex)" class="btn btn-danger">Remove App</button>
-</div>
+      <div class="mb-3 row">
+        <label for="port_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Port</label>
+        <div class="col-sm-10">
+          <div class="input-group">
+            <input type="number" id="port_{{ appIndex }}" name="port_{{ appIndex }}" [(ngModel)]="app.port" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="environment_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Environment</label>
+        <div class="col-sm-10" *ngIf="app.environment">
+          <fusio-form-map id="environment_{{ appIndex }}" name="environment_{{ appIndex }}" [data]="app.environment" (dataChange)="app.environment = $event"></fusio-form-map>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="volumes_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Volumes</label>
+        <div class="col-sm-10">
+          <!-- <fusio-form-list id="volumes" name="volumes" [data]="app.volumes" (dataChange)="app.volumes = $event"></fusio-form-list> -->
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="links_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Links</label>
+        <div class="col-sm-10" *ngIf="app.links">
+          <fusio-form-list id="links_{{ appIndex }}" name="links_{{ appIndex }}" [data]="app.links" (dataChange)="app.links = $event"></fusio-form-list>
+        </div>
+      </div>
+    </ng-template>
+  </li>
+</ul>
+<div [ngbNavOutlet]="nav" class="mb-3"></div>
 
-<button (click)="add()" class="btn btn-success">Add App</button>
-
-<hr>
+<button (click)="add()" class="btn btn-success me-1">Add App</button>

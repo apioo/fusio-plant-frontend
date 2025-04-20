@@ -9,7 +9,7 @@
 
 <fusio-message [response]="response"></fusio-message>
 
-<form *ngIf="entity">
+<form *ngIf="entity" class="mb-5">
   <div class="mb-3 row">
     <label for="name" class="col-sm-2 col-form-label fw-bold">Name</label>
     <div class="col-sm-10">
@@ -20,17 +20,32 @@
       </div>
     </div>
   </div>
-  <div class="mb-3 row">
+  <div class="mb-3 row" *ngIf="mode === 1">
     <label for="preset" class="col-sm-2 col-form-label fw-bold">Preset</label>
     <div class="col-sm-10">
       <select id="preset" name="preset" [(ngModel)]="preset" (ngModelChange)="loadPreset()" class="form-select">
         <option [ngValue]="undefined">Custom</option>
-        <option *ngFor="let preset of presets" [ngValue]="preset.name">{{ preset.displayName }}</option>
+        <ng-container *ngFor="let preset of presets">
+          <ng-container *ngIf="preset.displayName && preset.displayName.indexOf('-') === -1">
+            <option [ngValue]="preset.name">{{ preset.displayName }}</option>
+          </ng-container>
+        </ng-container>
+      </select>
+    </div>
+  </div>
+  <div class="mb-3 row" *ngIf="mode === 1 && variants && variants.length > 0">
+    <label for="preset" class="col-sm-2 col-form-label fw-bold">Variant</label>
+    <div class="col-sm-10">
+      <select id="preset" name="preset" [(ngModel)]="variant" (ngModelChange)="loadVariant()" class="form-select">
+        <option [ngValue]="preset">Default</option>
+        <ng-container *ngFor="let variant of variants">
+          <option [ngValue]="variant.name">{{ variant.displayName }}</option>
+        </ng-container>
       </select>
     </div>
   </div>
   <ng-container *ngIf="entity.apps">
-    <app-project-apps [apps]="entity.apps" (dataChange)="entity.apps = $event"></app-project-apps>
+    <app-project-apps [active]="active" [apps]="entity.apps" (dataChange)="entity.apps = $event"></app-project-apps>
   </ng-container>
   <div class="btn-group" role="group">
     <ng-container *ngIf="mode === 1"><button type="button" class="btn btn-primary" (click)="doCreate(entity)">Create</button></ng-container>
@@ -38,5 +53,3 @@
     <ng-container *ngIf="mode === 3"><button type="button" class="btn btn-danger" (click)="doDelete(entity)">Delete</button></ng-container>
   </div>
 </form>
-
-<pre>{{entity|json}}</pre>

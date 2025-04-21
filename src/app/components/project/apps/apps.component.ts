@@ -1,9 +1,11 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ProjectApp} from "../../../generated/ProjectApp";
 import {FormsModule} from "@angular/forms";
-import {JsonPipe, NgForOf, NgIf} from "@angular/common";
-import {NgbNav, NgbNavContent, NgbNavItem, NgbNavLinkButton, NgbNavOutlet, NgbPopover} from "@ng-bootstrap/ng-bootstrap";
+import {NgForOf, NgIf} from "@angular/common";
+import {NgbNav, NgbNavContent, NgbNavItem, NgbNavLinkButton, NgbNavOutlet} from "@ng-bootstrap/ng-bootstrap";
 import {FusioSdkModule} from "ngx-fusio-sdk";
+import {LinkComponent} from "./link/link.component";
+import {VolumeComponent} from "./volume/volume.component";
 
 @Component({
   selector: 'app-project-apps',
@@ -11,15 +13,15 @@ import {FusioSdkModule} from "ngx-fusio-sdk";
   imports: [
     FormsModule,
     NgForOf,
-    NgbPopover,
     FusioSdkModule,
     NgbNav,
     NgbNavItem,
     NgbNavLinkButton,
     NgbNavContent,
     NgbNavOutlet,
-    JsonPipe,
-    NgIf
+    NgIf,
+    LinkComponent,
+    VolumeComponent
   ],
   templateUrl: './apps.component.html',
   styleUrl: './apps.component.css'
@@ -53,6 +55,16 @@ export class AppsComponent {
     this.dataChange.emit(this.apps);
 
     this.active = this.apps.length - 1;
+  }
+
+  getContainerNames(self: ProjectApp): Array<string> {
+    let names: Array<string> = [];
+    this.apps.forEach((app) => {
+      if (app.name && app.name != self.name) {
+        names.push(app.name);
+      }
+    });
+    return names;
   }
 
 }

@@ -9,6 +9,7 @@ import {ClientException, UnknownStatusCodeException} from "sdkgen-client";
 
 import {AuthorizationTag} from "./AuthorizationTag";
 import {ConsumerTag} from "./ConsumerTag";
+import {DashboardTag} from "./DashboardTag";
 import {MetaTag} from "./MetaTag";
 import {PresetTag} from "./PresetTag";
 import {ProjectTag} from "./ProjectTag";
@@ -26,6 +27,14 @@ export class Client extends ClientAbstract {
     public consumer(): ConsumerTag
     {
         return new ConsumerTag(
+            this.httpClient,
+            this.parser
+        );
+    }
+
+    public dashboard(): DashboardTag
+    {
+        return new DashboardTag(
             this.httpClient,
             this.parser
         );

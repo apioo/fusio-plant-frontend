@@ -1,4 +1,53 @@
 
 <h1>Dashboard</h1>
 
-<p>dashboard works!</p>
+<div class="row">
+  <div class="col-lg-6 col-xl-4">
+    <div class="card fusio-panel">
+      <div class="card-header">CPU Usage</div>
+      <div class="card-body">
+        <apx-chart *ngIf="cpuPerc" [series]="cpuPerc.series" [chart]="{type: 'line', height: 240}" [xaxis]="cpuPerc.xaxis" [stroke]="{curve: 'smooth'}"></apx-chart>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-xl-4">
+    <div class="card fusio-panel">
+      <div class="card-header">Memory Usage</div>
+      <div class="card-body">
+        <apx-chart *ngIf="memPerc" [series]="memPerc.series" [chart]="{type: 'line', height: 240}" [xaxis]="memPerc.xaxis" [stroke]="{curve: 'smooth'}"></apx-chart>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-xl-4">
+    <div class="card fusio-panel">
+      <div class="card-header">NetIO Received</div>
+      <div class="card-body">
+        <apx-chart *ngIf="netioReceived" [series]="netioReceived.series" [chart]="{type: 'line', height: 240}" [xaxis]="netioReceived.xaxis" [stroke]="{curve: 'smooth'}"></apx-chart>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-xl-4">
+    <div class="card fusio-panel">
+      <div class="card-header">NetIO Sent</div>
+      <div class="card-body">
+        <apx-chart *ngIf="netioSent" [series]="netioSent.series" [chart]="{type: 'line', height: 240}" [xaxis]="netioSent.xaxis" [stroke]="{curve: 'smooth'}"></apx-chart>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-xl-4">
+    <div class="card fusio-panel">
+      <div class="card-header">BlockIO Written</div>
+      <div class="card-body">
+        <apx-chart *ngIf="blockioWritten" [series]="blockioWritten.series" [chart]="{type: 'line', height: 240}" [xaxis]="blockioWritten.xaxis" [stroke]="{curve: 'smooth'}"></apx-chart>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-xl-4">
+    <div class="card fusio-panel">
+      <div class="card-header">BlockIO Read</div>
+      <div class="card-body">
+        <apx-chart *ngIf="blockioRead" [series]="blockioRead.series" [chart]="{type: 'line', height: 240}" [xaxis]="blockioRead.xaxis" [stroke]="{curve: 'smooth'}"></apx-chart>
+      </div>
+    </div>
+  </div>
+</div>

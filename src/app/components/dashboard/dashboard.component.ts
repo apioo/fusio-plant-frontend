@@ -3,13 +3,15 @@ import {ApiService} from "../../api.service";
 import {ChartComponent} from "ngx-apexcharts";
 import {ChartConverter, ChartOptions} from "../../services/chart-converter.service";
 import {NgIf} from "@angular/common";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
     ChartComponent,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'

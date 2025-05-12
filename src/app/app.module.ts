@@ -29,7 +29,7 @@ import {AppsComponent} from "./components/project/apps/apps.component";
     FormsModule,
     ReactiveFormsModule,
     MonacoEditorModule.forRoot(),
-    FusioSdkModule.forRoot(ConfigBuilder.getConfig()),
+    FusioSdkModule.forRoot(ConfigBuilder.build()),
     TypeschemaEditorModule,
     AppsComponent,
   ],
@@ -42,4 +42,9 @@ import {AppsComponent} from "./components/project/apps/apps.component";
   bootstrap: [BootstrapComponent]
 })
 export class AppModule {
+}
+
+declare global {
+  var FUSIO_URL: string | undefined;
+  var FUSIO_APP_KEY: string | undefined;
 }

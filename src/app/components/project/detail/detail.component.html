@@ -6,10 +6,19 @@
 
 <fusio-message [response]="response"></fusio-message>
 
+<div *ngIf="result">
+  <pre>{{result.output}}</pre>
+</div>
+
 <div *ngIf="selected">
   <div class="btn-group" role="group">
     <a [routerLink]="getEditLink(selected.id)" class="btn btn-primary fusio-btn-update">Update</a>
     <a [routerLink]="getDeleteLink(selected.id)" class="btn btn-danger fusio-btn-delete">Delete</a>
+    <a (click)="doCertbot(selected.id)" class="btn">Certbot</a>
+    <a (click)="doPull(selected.id)" class="btn">Pull</a>
+    <a (click)="doUp(selected.id)" class="btn">Up</a>
+    <a (click)="doDown(selected.id)" class="btn">Down</a>
+    <a (click)="doLogs(selected.id)" class="btn">Logs</a>
   </div>
   <div class="float-end">
     <button type="button" (click)="jsonView = !jsonView" class="btn btn-outline-secondary fusio-btn-json ms-2">JSON</button>

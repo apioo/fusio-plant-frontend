@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Fusio Plant</title>
-  <base href="/">
+  <title>Plant</title>
+  <base href="${BASE_PATH}/plant/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="assets/fusio_32px.png">
+  <script>
+    FUSIO_URL = '${API_URL}';
+    FUSIO_APP_KEY = '${APP_KEY}';
+  </script>
 </head>
 <body>
   <fusio-bootstrap></fusio-bootstrap>

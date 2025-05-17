@@ -18,6 +18,7 @@ export class FormComponent extends Form<Project> {
   presets?: Array<Preset>;
   variants?: Array<Preset>;
   active?: number;
+  loading = false;
 
   constructor(private service: ProjectService, private api: ApiService, route: ActivatedRoute, router: Router, error: ErrorService) {
     super(route, router, error);
@@ -30,6 +31,26 @@ export class FormComponent extends Form<Project> {
 
   protected getService(): ProjectService {
     return this.service;
+  }
+
+  protected override beforeCreate(entity: Project): Project {
+    this.loading = true;
+    return super.beforeCreate(entity);
+  }
+
+  protected override beforeUpdate(entity: Project): Project {
+    this.loading = true;
+    return super.beforeUpdate(entity);
+  }
+
+  protected override beforeDelete(entity: Project): Project {
+    this.loading = true;
+    return super.beforeDelete(entity);
+  }
+
+  protected override onSubmit(): void
+  {
+    this.loading = false;
   }
 
   async loadPreset() {

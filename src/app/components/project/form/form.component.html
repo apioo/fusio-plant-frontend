@@ -50,15 +50,15 @@
   <div class="btn-group" role="group">
     <ng-container *ngIf="mode === 1">
       <button type="button" class="btn btn-primary" *ngIf="!loading" (click)="doCreate(entity)">Create</button>
-      <button type="button" class="btn btn-primary" disabled *ngIf="loading"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span class="visually-hidden" role="status">Creating ...</span></button>
+      <button type="button" class="btn btn-primary" disabled *ngIf="loading"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span role="status">Creating ...</span></button>
     </ng-container>
     <ng-container *ngIf="mode === 2">
       <button type="button" class="btn btn-primary" *ngIf="!loading" (click)="doUpdate(entity)">Update</button>
-      <button type="button" class="btn btn-primary" disabled *ngIf="loading"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span class="visually-hidden" role="status">Updating ...</span></button>
+      <button type="button" class="btn btn-primary" disabled *ngIf="loading"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span role="status">Updating ...</span></button>
     </ng-container>
     <ng-container *ngIf="mode === 3">
       <button type="button" class="btn btn-danger" *ngIf="!loading" (click)="doDelete(entity)">Delete</button>
-      <button type="button" class="btn btn-danger" disabled *ngIf="loading"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span class="visually-hidden" role="status">Deleting ...</span></button>
+      <button type="button" class="btn btn-danger" disabled *ngIf="loading"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span role="status">Deleting ...</span></button>
     </ng-container>
   </div>
 </form>

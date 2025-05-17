@@ -10,7 +10,7 @@
         <label for="name_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Name</label>
         <div class="col-sm-10">
           <div class="input-group">
-            <input type="text" id="name_{{ appIndex }}" name="name_{{ appIndex }}" [(ngModel)]="app.name" class="form-control">
+            <input type="text" id="name_{{ appIndex }}" name="name_{{ appIndex }}" [(ngModel)]="app.name" [disabled]="disabled" class="form-control">
           </div>
         </div>
       </div>
@@ -18,21 +18,21 @@
         <label for="image_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Image</label>
         <div class="col-sm-10">
           <div class="input-group">
-            <input type="text" id="image_{{ appIndex }}" name="image_{{ appIndex }}" [(ngModel)]="app.image" class="form-control">
+            <input type="text" id="image_{{ appIndex }}" name="image_{{ appIndex }}" [(ngModel)]="app.image" [disabled]="disabled" class="form-control">
           </div>
         </div>
       </div>
       <div class="mb-3 row">
         <label for="domains_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Domains</label>
         <div class="col-sm-10" *ngIf="app.domains">
-          <fusio-form-list id="domains_{{ appIndex }}" name="domains_{{ appIndex }}" [data]="app.domains" (dataChange)="app.domains = $event"></fusio-form-list>
+          <fusio-form-list id="domains_{{ appIndex }}" name="domains_{{ appIndex }}" [data]="app.domains" (dataChange)="app.domains = $event" [disabled]="disabled"></fusio-form-list>
         </div>
       </div>
       <div class="mb-3 row">
         <label for="cache_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Cache</label>
         <div class="col-sm-10">
           <div class="form-check form-switch">
-            <input id="cache_{{ appIndex }}" name="cache_{{ appIndex }}" [(ngModel)]="app.cache" type="checkbox" role="switch" class="form-check-input">
+            <input id="cache_{{ appIndex }}" name="cache_{{ appIndex }}" [(ngModel)]="app.cache" [disabled]="disabled" type="checkbox" role="switch" class="form-check-input">
           </div>
         </div>
       </div>
@@ -40,26 +40,26 @@
         <label for="port_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Port</label>
         <div class="col-sm-10">
           <div class="input-group">
-            <input type="number" id="port_{{ appIndex }}" name="port_{{ appIndex }}" [(ngModel)]="app.port" class="form-control">
+            <input type="number" id="port_{{ appIndex }}" name="port_{{ appIndex }}" [(ngModel)]="app.port" [disabled]="disabled" class="form-control">
           </div>
         </div>
       </div>
       <div class="mb-3 row">
         <label for="environment_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Environment</label>
         <div class="col-sm-10" *ngIf="app.environment">
-          <fusio-form-map id="environment_{{ appIndex }}" name="environment_{{ appIndex }}" [data]="app.environment" (dataChange)="app.environment = $event"></fusio-form-map>
+          <fusio-form-map id="environment_{{ appIndex }}" name="environment_{{ appIndex }}" [data]="app.environment" (dataChange)="app.environment = $event" [disabled]="disabled"></fusio-form-map>
         </div>
       </div>
       <div class="mb-3 row">
         <label for="volumes_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Volumes</label>
         <div class="col-sm-10" *ngIf="app.volumes">
-          <app-project-apps-volume id="volumes_{{ appIndex }}" name="volumes_{{ appIndex }}" [data]="app.volumes" (dataChange)="app.volumes = $event"></app-project-apps-volume>
+          <app-project-apps-volume id="volumes_{{ appIndex }}" name="volumes_{{ appIndex }}" [data]="app.volumes" (dataChange)="app.volumes = $event" [disabled]="disabled"></app-project-apps-volume>
         </div>
       </div>
       <div class="mb-3 row">
         <label for="links_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Links</label>
         <div class="col-sm-10" *ngIf="app.links">
-          <app-project-apps-link id="links_{{ appIndex }}" name="links_{{ appIndex }}" [containers]="getContainerNames(app)" [data]="app.links" (dataChange)="app.links = $event"></app-project-apps-link>
+          <app-project-apps-link id="links_{{ appIndex }}" name="links_{{ appIndex }}" [containers]="getContainerNames(app)" [data]="app.links" (dataChange)="app.links = $event" [disabled]="disabled"></app-project-apps-link>
         </div>
       </div>
     </ng-template>

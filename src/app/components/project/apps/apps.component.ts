@@ -31,6 +31,7 @@ export class AppsComponent {
   @Input() apps!: Array<ProjectApp>
   @Output() dataChange = new EventEmitter<Array<ProjectApp>>();
   @Input() active?: number;
+  @Input() disabled = false;
 
   add() {
     const length = this.apps.push({

@@ -45,7 +45,7 @@
     </div>
   </div>
   <ng-container *ngIf="entity.apps">
-    <app-project-apps [active]="active" [apps]="entity.apps" (dataChange)="entity.apps = $event"></app-project-apps>
+    <app-project-apps [active]="active" [apps]="entity.apps" (dataChange)="entity.apps = $event" [disabled]="mode === 3"></app-project-apps>
   </ng-container>
   <div class="btn-group" role="group">
     <ng-container *ngIf="mode === 1">

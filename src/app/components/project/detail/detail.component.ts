@@ -14,6 +14,7 @@ import {Message} from "../../../generated/Message";
 export class DetailComponent extends Detail<Project> {
 
   result?: Message;
+  loading = false;
 
   constructor(private service: ProjectService, private api: ApiService, route: ActivatedRoute, router: Router, error: ErrorService) {
     super(route, router, error);
@@ -24,23 +25,53 @@ export class DetailComponent extends Detail<Project> {
   }
 
   async doCertbot(id: any) {
-    this.result = await this.api.getClient().project().certbot('' + id, {});
+    this.loading = true;
+    try {
+      this.result = await this.api.getClient().project().certbot('' + id, {});
+    } catch (error) {
+      this.result = this.error.convert(error);
+    }
+    this.loading = false;
   }
 
   async doPull(id: any) {
-    this.result = await this.api.getClient().project().pull('' + id, {});
+    this.loading = true;
+    try {
+      this.result = await this.api.getClient().project().pull('' + id, {});
+    } catch (error) {
+      this.result = this.error.convert(error);
+    }
+    this.loading = false;
   }
 
   async doUp(id: any) {
-    this.result = await this.api.getClient().project().up('' + id, {});
+    this.loading = true;
+    try {
+      this.result = await this.api.getClient().project().up('' + id, {});
+    } catch (error) {
+      this.result = this.error.convert(error);
+    }
+    this.loading = false;
   }
 
   async doDown(id: any) {
-    this.result = await this.api.getClient().project().down('' + id, {});
+    this.loading = true;
+    try {
+      this.result = await this.api.getClient().project().down('' + id, {});
+    } catch (error) {
+      this.result = this.error.convert(error);
+    }
+    this.loading = false;
   }
 
   async doLogs(id: any) {
-    this.result = await this.api.getClient().project().logs('' + id);
+    this.loading = true;
+    try {
+      this.result = await this.api.getClient().project().logs('' + id);
+    } catch (error) {
+      this.result = this.error.convert(error);
+    }
+    this.loading = false;
   }
 
 }

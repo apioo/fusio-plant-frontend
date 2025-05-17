@@ -14,16 +14,30 @@
   <div class="btn-group" role="group">
     <a [routerLink]="getEditLink(selected.id)" class="btn btn-primary fusio-btn-update">Update</a>
     <a [routerLink]="getDeleteLink(selected.id)" class="btn btn-danger fusio-btn-delete">Delete</a>
-    <a (click)="doCertbot(selected.id)" class="btn">Certbot</a>
-    <a (click)="doPull(selected.id)" class="btn">Pull</a>
-    <a (click)="doUp(selected.id)" class="btn">Up</a>
-    <a (click)="doDown(selected.id)" class="btn">Down</a>
-    <a (click)="doLogs(selected.id)" class="btn">Logs</a>
+    <ng-container *ngIf="!loading">
+      <button (click)="doCertbot(selected.id)" class="btn">Certbot</button>
+      <button (click)="doPull(selected.id)" class="btn">Pull</button>
+      <button (click)="doUp(selected.id)" class="btn">Up</button>
+      <button (click)="doDown(selected.id)" class="btn">Down</button>
+      <button (click)="doLogs(selected.id)" class="btn">Logs</button>
+    </ng-container>
+    <ng-container *ngIf="loading">
+      <button disabled class="btn">Certbot</button>
+      <button disabled class="btn">Pull</button>
+      <button disabled class="btn">Up</button>
+      <button disabled class="btn">Down</button>
+      <button disabled class="btn">Logs</button>
+    </ng-container>
   </div>
   <div class="float-end">
     <button type="button" (click)="jsonView = !jsonView" class="btn btn-outline-secondary fusio-btn-json ms-2">JSON</button>
   </div>
   <div class="fusio-detail" *ngIf="!jsonView">
+    <div class="text-center" *ngIf="loading">
+      <div class="spinner-border mt-3 mb-3" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
     <div class="row">
       <div class="col-lg-2 fw-bold">Name</div>
       <div class="col-lg-10">{{selected.name}}</div>

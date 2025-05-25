@@ -47,7 +47,7 @@ export class PresetTag extends TagAbstract {
         throw new UnknownStatusCodeException('The server returned an unknown status code: ' + statusCode);
     }
     /**
-     * Returns a preset for a specific app
+     * Returns all available presets
      *
      * @returns {Promise<PresetCollection>}
      * @throws {MessageException}

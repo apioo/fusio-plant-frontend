@@ -10,6 +10,7 @@ import {ClientException, UnknownStatusCodeException} from "sdkgen-client";
 import {AuthorizationTag} from "./AuthorizationTag";
 import {ConsumerTag} from "./ConsumerTag";
 import {DashboardTag} from "./DashboardTag";
+import {ExecuteTag} from "./ExecuteTag";
 import {MetaTag} from "./MetaTag";
 import {PresetTag} from "./PresetTag";
 import {ProjectTag} from "./ProjectTag";
@@ -35,6 +36,14 @@ export class Client extends ClientAbstract {
     public dashboard(): DashboardTag
     {
         return new DashboardTag(
+            this.httpClient,
+            this.parser
+        );
+    }
+
+    public execute(): ExecuteTag
+    {
+        return new ExecuteTag(
             this.httpClient,
             this.parser
         );
@@ -77,6 +86,6 @@ export class Client extends ClientAbstract {
 
     public static buildAnonymous(): Client
     {
-        return new Client('http://127.0.0.1/projects/fusio-projects/plant/backend/public/', new Anonymous());
+        return new Client('http://127.0.0.1/projects/fusio-projects/plant/backend/public', new Anonymous());
     }
 }

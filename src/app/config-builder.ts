@@ -34,6 +34,30 @@ export class ConfigBuilder {
           icon: 'bi-terminal-fill',
           path: '/project',
         }]
+      }, {
+        title: 'System',
+        visible: false,
+        children: [{
+          title: 'Certbot',
+          icon: 'bi-server',
+          path: '/system/certbot',
+        }, {
+          title: 'Images',
+          icon: 'bi-terminal-fill',
+          path: '/system/images',
+        }, {
+          title: 'Login',
+          icon: 'bi-terminal-fill',
+          path: '/system/login',
+        }, {
+          title: 'Processes',
+          icon: 'bi-terminal-fill',
+          path: '/system/ps',
+        }, {
+          title: 'Stats',
+          icon: 'bi-terminal-fill',
+          path: '/system/stats',
+        }]
       }],
     }
   }

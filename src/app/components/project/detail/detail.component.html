@@ -11,11 +11,12 @@
     <a [routerLink]="getEditLink(selected.id)" class="btn btn-primary fusio-btn-update">Update</a>
     <a [routerLink]="getDeleteLink(selected.id)" class="btn btn-danger fusio-btn-delete">Delete</a>
     <ng-container *ngIf="!loading">
-      <button (click)="doCertbot(selected.id)" class="btn btn-outline-secondary">Certbot</button>
+      <button (click)="doLogs(selected.id)" class="btn btn-outline-secondary">Logs</button>
+      <button (click)="doPs(selected.id)" class="btn btn-outline-secondary">Ps</button>
+      <button (click)="doStats(selected.id)" class="btn btn-outline-secondary">Stats</button>
       <button (click)="doPull(selected.id)" class="btn btn-outline-secondary">Pull</button>
       <button (click)="doUp(selected.id)" class="btn btn-outline-secondary">Up</button>
       <button (click)="doDown(selected.id)" class="btn btn-outline-secondary">Down</button>
-      <button (click)="doLogs(selected.id)" class="btn btn-outline-secondary">Logs</button>
     </ng-container>
     <ng-container *ngIf="loading">
       <button disabled class="btn btn-outline-secondary">Certbot</button>

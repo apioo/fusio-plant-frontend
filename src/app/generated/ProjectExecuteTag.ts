@@ -6,7 +6,9 @@
 import {TagAbstract, HttpRequest} from "sdkgen-client"
 import {ClientException, UnknownStatusCodeException} from "sdkgen-client";
 
+import {DockerLogs} from "./DockerLogs";
 import {DockerProcesses} from "./DockerProcesses";
+import {DockerStatistics} from "./DockerStatistics";
 import {Message} from "./Message";
 import {MessageException} from "./MessageException";
 import {Passthru} from "./Passthru";
@@ -51,11 +53,11 @@ export class ProjectExecuteTag extends TagAbstract {
     /**
      * Returns the latest logs
      *
-     * @returns {Promise<Message>}
+     * @returns {Promise<DockerLogs>}
      * @throws {MessageException}
      * @throws {ClientException}
      */
-    public async logs(id: string): Promise<Message> {
+    public async logs(id: string): Promise<DockerLogs> {
         const url = this.parser.url('/project/:id/execute/logs', {
             'id': id,
         });
@@ -72,7 +74,7 @@ export class ProjectExecuteTag extends TagAbstract {
 
         const response = await this.httpClient.request(request);
         if (response.ok) {
-            return await response.json() as Message;
+            return await response.json() as DockerLogs;
         }
 
         const statusCode = response.status;
@@ -145,6 +147,42 @@ export class ProjectExecuteTag extends TagAbstract {
         const response = await this.httpClient.request(request);
         if (response.ok) {
             return await response.json() as Message;
+        }
+
+        const statusCode = response.status;
+        if (statusCode >= 0 && statusCode <= 999) {
+            throw new MessageException(await response.json() as Message);
+        }
+
+        throw new UnknownStatusCodeException('The server returned an unknown status code: ' + statusCode);
+    }
+    /**
+     * Returns statistic data for the project
+     *
+     * @returns {Promise<DockerStatistics>}
+     * @throws {MessageException}
+     * @throws {ClientException}
+     */
+    public async stats(id: string, payload: Passthru): Promise<DockerStatistics> {
+        const url = this.parser.url('/project/:id/execute/stats', {
+            'id': id,
+        });
+
+        let request: HttpRequest = {
+            url: url,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            params: this.parser.query({
+            }, [
+            ]),
+            data: payload
+        };
+
+        const response = await this.httpClient.request(request);
+        if (response.ok) {
+            return await response.json() as DockerStatistics;
         }
 
         const statusCode = response.status;

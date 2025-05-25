@@ -54,11 +54,11 @@ export class ExecuteTag extends TagAbstract {
     /**
      * Returns all available images
      *
-     * @returns {Promise<Message>}
+     * @returns {Promise<DockerImages>}
      * @throws {MessageException}
      * @throws {ClientException}
      */
-    public async images(payload: DockerImages): Promise<Message> {
+    public async images(payload: Passthru): Promise<DockerImages> {
         const url = this.parser.url('/execute/images', {
         });
 
@@ -76,7 +76,7 @@ export class ExecuteTag extends TagAbstract {
 
         const response = await this.httpClient.request(request);
         if (response.ok) {
-            return await response.json() as Message;
+            return await response.json() as DockerImages;
         }
 
         const statusCode = response.status;

@@ -10,20 +10,18 @@
   <div class="btn-group" role="group">
     <a [routerLink]="getEditLink(selected.id)" class="btn btn-primary fusio-btn-update">Update</a>
     <a [routerLink]="getDeleteLink(selected.id)" class="btn btn-danger fusio-btn-delete">Delete</a>
+    <a [routerLink]="['project', selected.id, 'logs']" class="btn btn-secondary">Logs</a>
+    <a [routerLink]="['project', selected.id, 'ps']" class="btn btn-secondary">Ps</a>
+    <a [routerLink]="['project', selected.id, 'stats']" class="btn btn-secondary">Stats</a>
     <ng-container *ngIf="!loading">
-      <button (click)="doLogs(selected.id)" class="btn btn-outline-secondary">Logs</button>
-      <button (click)="doPs(selected.id)" class="btn btn-outline-secondary">Ps</button>
-      <button (click)="doStats(selected.id)" class="btn btn-outline-secondary">Stats</button>
-      <button (click)="doPull(selected.id)" class="btn btn-outline-secondary">Pull</button>
-      <button (click)="doUp(selected.id)" class="btn btn-outline-secondary">Up</button>
-      <button (click)="doDown(selected.id)" class="btn btn-outline-secondary">Down</button>
+      <button (click)="doPull(selected.id)" class="btn btn-secondary">Pull</button>
+      <button (click)="doUp(selected.id)" class="btn btn-secondary">Up</button>
+      <button (click)="doDown(selected.id)" class="btn btn-secondary">Down</button>
     </ng-container>
     <ng-container *ngIf="loading">
-      <button disabled class="btn btn-outline-secondary">Certbot</button>
-      <button disabled class="btn btn-outline-secondary">Pull</button>
-      <button disabled class="btn btn-outline-secondary">Up</button>
-      <button disabled class="btn btn-outline-secondary">Down</button>
-      <button disabled class="btn btn-outline-secondary">Logs</button>
+      <button disabled class="btn btn-secondary">Pull</button>
+      <button disabled class="btn btn-secondary">Up</button>
+      <button disabled class="btn btn-secondary">Down</button>
     </ng-container>
   </div>
   <div class="float-end">

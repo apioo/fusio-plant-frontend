@@ -14,12 +14,28 @@ import {FormComponent as ProjectForm} from "./components/project/form/form.compo
 import {MonacoEditorModule} from "ngx-monaco-editor-v2";
 import {TypeschemaEditorModule} from "ngx-typeschema-editor";
 import {AppsComponent} from "./components/project/apps/apps.component";
+import {LogsComponent as ProjectLogsComponent} from "./components/project/logs/logs.component";
+import {PsComponent as ProjectPsComponent} from "./components/project/ps/ps.component";
+import {StatsComponent as ProjectStatsComponent} from "./components/project/stats/stats.component";
+import {ImagesComponent} from "./components/insight/images/images.component";
+import {PsComponent} from "./components/insight/ps/ps.component";
+import {StatsComponent} from "./components/insight/stats/stats.component";
+import {CertbotComponent} from "./components/action/certbot/certbot.component";
+import {LoginComponent} from "./components/action/login/login.component";
 
 @NgModule({
   declarations: [
+    CertbotComponent,
+    LoginComponent,
+    ImagesComponent,
+    PsComponent,
+    StatsComponent,
     ProjectList,
     ProjectDetail,
     ProjectForm,
+    ProjectLogsComponent,
+    ProjectPsComponent,
+    ProjectStatsComponent,
   ],
   imports: [
     BrowserModule,

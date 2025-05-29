@@ -41,7 +41,7 @@ export class DetailComponent extends Detail<Project> {
   async doLogs(id: any) {
     this.loading = true;
     try {
-      this.result = await this.api.getClient().project().execute().logs('' + id);
+      this.result = await this.api.getClient().project().execute().logs('' + id, {});
     } catch (error) {
       this.result = this.error.convert(error);
     }

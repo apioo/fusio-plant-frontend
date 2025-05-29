@@ -8,11 +8,6 @@ import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-system-login',
-  standalone: true,
-  imports: [
-    NgbAlert,
-    FormsModule
-  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

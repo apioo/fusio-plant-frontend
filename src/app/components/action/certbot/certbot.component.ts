@@ -8,11 +8,6 @@ import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-system-certbot',
-  standalone: true,
-  imports: [
-    NgbAlert,
-    FormsModule
-  ],
   templateUrl: './certbot.component.html',
   styleUrl: './certbot.component.css'
 })

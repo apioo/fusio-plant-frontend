@@ -3,14 +3,9 @@ import {Message} from "../../../generated/Message";
 import {ApiService} from "../../../api.service";
 import {ErrorService} from "ngx-fusio-sdk";
 import {DockerImages} from "../../../generated/DockerImages";
-import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-system-images',
-  standalone: true,
-  imports: [
-    NgForOf
-  ],
   templateUrl: './images.component.html',
   styleUrl: './images.component.css'
 })

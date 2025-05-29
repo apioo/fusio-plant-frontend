@@ -3,14 +3,9 @@ import {Message} from "../../../generated/Message";
 import {ApiService} from "../../../api.service";
 import {ErrorService} from "ngx-fusio-sdk";
 import {DockerProcesses} from "../../../generated/DockerProcesses";
-import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-system-ps',
-  standalone: true,
-    imports: [
-        NgForOf
-    ],
   templateUrl: './ps.component.html',
   styleUrl: './ps.component.css'
 })

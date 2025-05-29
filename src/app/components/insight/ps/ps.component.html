@@ -1,7 +1,15 @@
 
 <h1>Processes</h1>
 
-<table class="table table-striped">
+<fusio-message [response]="result"></fusio-message>
+
+<div *ngIf="loading" class="text-center mt-5">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<table *ngIf="!loading" class="table table-striped">
   <thead>
   <tr>
     <th>ID</th>

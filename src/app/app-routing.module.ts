@@ -10,10 +10,16 @@ import {LoginComponent} from "./components/action/login/login.component";
 import {ImagesComponent} from "./components/insight/images/images.component";
 import {PsComponent} from "./components/insight/ps/ps.component";
 import {StatsComponent} from "./components/insight/stats/stats.component";
+import {LogsComponent as ProjectLogsComponent} from "./components/project/logs/logs.component";
+import {PsComponent as ProjectPsComponent} from "./components/project/ps/ps.component";
+import {StatsComponent as ProjectStatsComponent} from "./components/project/stats/stats.component";
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [isAuthenticated] },
   { path: 'project', canActivate: [isAuthenticated], children: EntityRoute.getAll(ProjectList, ProjectDetail, ProjectForm) },
+  { path: 'project/:id/logs', component: ProjectLogsComponent, canActivate: [isAuthenticated] },
+  { path: 'project/:id/ps', component: ProjectPsComponent, canActivate: [isAuthenticated] },
+  { path: 'project/:id/stats', component: ProjectStatsComponent, canActivate: [isAuthenticated] },
   { path: 'insight/images', component: ImagesComponent, canActivate: [isAuthenticated] },
   { path: 'insight/ps', component: PsComponent, canActivate: [isAuthenticated] },
   { path: 'insight/stats', component: StatsComponent, canActivate: [isAuthenticated] },

@@ -3,14 +3,9 @@ import {Message} from "../../../generated/Message";
 import {ApiService} from "../../../api.service";
 import {ErrorService} from "ngx-fusio-sdk";
 import {DockerStatistics} from "../../../generated/DockerStatistics";
-import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-system-stats',
-  standalone: true,
-    imports: [
-        NgForOf
-    ],
   templateUrl: './stats.component.html',
   styleUrl: './stats.component.css'
 })

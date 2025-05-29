@@ -7,6 +7,7 @@
  * Docker login
  */
 export interface DockerLogin {
+    domain?: string
     username?: string
     password?: string
 }

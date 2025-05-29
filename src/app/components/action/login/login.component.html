@@ -6,12 +6,16 @@ you want to fetch images from a private docker registry.</ngb-alert>
 
 <form>
   <div class="mb-3">
+    <label for="domain" class="form-label">Domain</label>
+    <input type="text" class="form-control" id="domain" name="domain" [(ngModel)]="domain" placeholder="Domain i.e. ghcr.io">
+  </div>
+  <div class="mb-3">
     <label for="username" class="form-label">Username</label>
-    <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username">
+    <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username" placeholder="Username">
   </div>
   <div class="mb-3">
     <label for="password" class="form-label">Password</label>
-    <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password">
+    <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" placeholder="Password or GitHub PAT">
   </div>
   <button (close)="doLogin()" class="btn btn-primary">Login</button>
 </form>

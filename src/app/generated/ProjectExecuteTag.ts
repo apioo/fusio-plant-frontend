@@ -57,19 +57,21 @@ export class ProjectExecuteTag extends TagAbstract {
      * @throws {MessageException}
      * @throws {ClientException}
      */
-    public async logs(id: string): Promise<DockerLogs> {
+    public async logs(id: string, payload: Passthru): Promise<DockerLogs> {
         const url = this.parser.url('/project/:id/execute/logs', {
             'id': id,
         });
 
         let request: HttpRequest = {
             url: url,
-            method: 'GET',
+            method: 'POST',
             headers: {
+                'Content-Type': 'application/json',
             },
             params: this.parser.query({
             }, [
             ]),
+            data: payload
         };
 
         const response = await this.httpClient.request(request);

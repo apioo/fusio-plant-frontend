@@ -18,6 +18,7 @@ import {FormsModule} from "@angular/forms";
 })
 export class LoginComponent {
 
+  domain = '';
   username = '';
   password = '';
 
@@ -28,12 +29,13 @@ export class LoginComponent {
   }
 
   async doLogin() {
-    if (!this.username || !this.password) {
+    if (!this.domain || !this.username || !this.password) {
       return;
     }
     this.loading = true;
     try {
       this.result = await this.api.getClient().execute().login({
+        domain: this.domain,
         username: this.username,
         password: this.password,
       });

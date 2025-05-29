@@ -1,0 +1,18 @@
+
+<h1>Login</h1>
+
+<ngb-alert type="info">Through this panel you can login to a private docker registry. This is needed in case
+you want to fetch images from a private docker registry.</ngb-alert>
+
+<form>
+  <div class="mb-3">
+    <label for="username" class="form-label">Username</label>
+    <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username">
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password">
+  </div>
+  <button (close)="doLogin()" class="btn btn-primary">Login</button>
+</form>
+

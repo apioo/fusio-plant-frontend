@@ -2,18 +2,21 @@ import {Component, OnInit} from '@angular/core';
 import {Message} from "../../../generated/Message";
 import {ApiService} from "../../../api.service";
 import {ErrorService} from "ngx-fusio-sdk";
-import {DockerProcesses} from "../../../generated/DockerProcesses";
+import {DockerImages} from "../../../generated/DockerImages";
+import {NgForOf} from "@angular/common";
 
 @Component({
-  selector: 'app-system-ps',
+  selector: 'app-system-images',
   standalone: true,
-  imports: [],
-  templateUrl: './ps.component.html',
-  styleUrl: './ps.component.css'
+  imports: [
+    NgForOf
+  ],
+  templateUrl: './images.component.html',
+  styleUrl: './images.component.css'
 })
-export class PsComponent implements OnInit {
+export class ImagesComponent implements OnInit {
 
-  processes?: DockerProcesses;
+  images?: DockerImages;
   result?: Message;
   loading = false;
 
@@ -23,7 +26,7 @@ export class PsComponent implements OnInit {
   async ngOnInit() {
     this.loading = true;
     try {
-      this.processes = await this.api.getClient().execute().ps({});
+      this.images = await this.api.getClient().execute().images({});
     } catch (error) {
       this.result = this.error.convert(error);
     }

@@ -32,7 +32,7 @@
   <div *ngIf="result">
     <fusio-message [response]="result" (close)="result = undefined"></fusio-message>
     <div style="height:400px;" class="mt-3" *ngIf="result?.output">
-      <ngx-monaco-editor style="height:100%" name="result" [options]="{theme: 'vs-light'}" [ngModel]="result?.output"></ngx-monaco-editor>
+      <ngx-monaco-editor style="height:100%" name="result" [options]="{theme: 'vs-light'}" [ngModel]="result.output"></ngx-monaco-editor>
     </div>
   </div>
   <div class="fusio-detail" *ngIf="!jsonView">

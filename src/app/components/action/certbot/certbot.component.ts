@@ -1,19 +1,26 @@
 import {Component} from '@angular/core';
 import {ApiService} from "../../../api.service";
-import {ErrorService} from "ngx-fusio-sdk";
+import {ErrorService, FusioSdkModule} from "ngx-fusio-sdk";
 import {Message} from "../../../generated/Message";
 import {CertbotRequest} from "../../../generated/CertbotRequest";
+import {NgbAlert} from "@ng-bootstrap/ng-bootstrap";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-system-certbot',
   standalone: true,
-  imports: [],
+  imports: [
+    NgbAlert,
+    FormsModule
+  ],
   templateUrl: './certbot.component.html',
   styleUrl: './certbot.component.css'
 })
 export class CertbotComponent {
 
-  request?: CertbotRequest;
+  domain = '';
+  email = '';
+
   result?: Message;
   loading = false;
 
@@ -21,12 +28,15 @@ export class CertbotComponent {
   }
 
   async doRequest() {
-    if (!this.request) {
+    if (!this.domain || !this.email) {
       return;
     }
     this.loading = true;
     try {
-      this.result = await this.api.getClient().execute().certbot(this.request);
+      this.result = await this.api.getClient().execute().certbot({
+        domain: this.domain,
+        email: this.email,
+      });
     } catch (error) {
       this.result = this.error.convert(error);
     }

@@ -1,0 +1,25 @@
+
+<h1>Processes</h1>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Image</th>
+    <th>Command</th>
+    <th>Created</th>
+    <th>Uptime</th>
+    <th>Ports</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let process of processes?.entry">
+    <td>{{process.ID}}</td>
+    <td>{{process.Image}}</td>
+    <td>{{process.Command}}</td>
+    <td>{{process.CreatedAt}}</td>
+    <td>{{process.RunningFor}}</td>
+    <td>{{process.Ports}}</td>
+  </tr>
+  </tbody>
+</table>

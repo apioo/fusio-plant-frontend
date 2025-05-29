@@ -2,18 +2,21 @@ import {Component, OnInit} from '@angular/core';
 import {Message} from "../../../generated/Message";
 import {ApiService} from "../../../api.service";
 import {ErrorService} from "ngx-fusio-sdk";
-import {DockerStatistics} from "../../../generated/DockerStatistics";
+import {DockerProcesses} from "../../../generated/DockerProcesses";
+import {NgForOf} from "@angular/common";
 
 @Component({
-  selector: 'app-system-stats',
+  selector: 'app-system-ps',
   standalone: true,
-  imports: [],
-  templateUrl: './stats.component.html',
-  styleUrl: './stats.component.css'
+    imports: [
+        NgForOf
+    ],
+  templateUrl: './ps.component.html',
+  styleUrl: './ps.component.css'
 })
-export class StatsComponent implements OnInit {
+export class PsComponent implements OnInit {
 
-  statistics?: DockerStatistics;
+  processes?: DockerProcesses;
   result?: Message;
   loading = false;
 
@@ -23,7 +26,7 @@ export class StatsComponent implements OnInit {
   async ngOnInit() {
     this.loading = true;
     try {
-      this.statistics = await this.api.getClient().execute().stats({});
+      this.processes = await this.api.getClient().execute().ps({});
     } catch (error) {
       this.result = this.error.convert(error);
     }

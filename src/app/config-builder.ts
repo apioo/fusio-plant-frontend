@@ -35,28 +35,32 @@ export class ConfigBuilder {
           path: '/project',
         }]
       }, {
-        title: 'System',
+        title: 'Insight',
         visible: false,
         children: [{
-          title: 'Certbot',
-          icon: 'bi-server',
-          path: '/system/certbot',
-        }, {
           title: 'Images',
-          icon: 'bi-terminal-fill',
-          path: '/system/images',
-        }, {
-          title: 'Login',
-          icon: 'bi-terminal-fill',
-          path: '/system/login',
+          icon: 'bi-image-fill',
+          path: '/insight/images',
         }, {
           title: 'Processes',
-          icon: 'bi-terminal-fill',
-          path: '/system/ps',
+          icon: 'bi-cpu-fill',
+          path: '/insight/ps',
         }, {
           title: 'Stats',
-          icon: 'bi-terminal-fill',
-          path: '/system/stats',
+          icon: 'bi-bar-chart-fill',
+          path: '/insight/stats',
+        }]
+      }, {
+        title: 'Action',
+        visible: false,
+        children: [{
+          title: 'Login',
+          icon: 'bi-door-open',
+          path: '/action/login',
+        }, {
+          title: 'Certbot',
+          icon: 'bi-shield-lock-fill',
+          path: '/action/certbot',
         }]
       }],
     }

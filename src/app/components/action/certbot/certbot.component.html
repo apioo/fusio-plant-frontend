@@ -1,0 +1,17 @@
+
+<h1>Certbot</h1>
+
+<ngb-alert type="info">Through this panel you can obtain SSL certificates for your domain.</ngb-alert>
+
+<form>
+  <div class="mb-3">
+    <label for="domain" class="form-label">Domain</label>
+    <input type="text" class="form-control" id="domain" name="domain" [(ngModel)]="domain">
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="text" class="form-control" id="email" name="email" [(ngModel)]="email">
+  </div>
+  <button (close)="doRequest()" class="btn btn-primary">Request</button>
+</form>
+

@@ -2,18 +2,21 @@ import {Component, OnInit} from '@angular/core';
 import {Message} from "../../../generated/Message";
 import {ApiService} from "../../../api.service";
 import {ErrorService} from "ngx-fusio-sdk";
-import {DockerImages} from "../../../generated/DockerImages";
+import {DockerStatistics} from "../../../generated/DockerStatistics";
+import {NgForOf} from "@angular/common";
 
 @Component({
-  selector: 'app-system-images',
+  selector: 'app-system-stats',
   standalone: true,
-  imports: [],
-  templateUrl: './images.component.html',
-  styleUrl: './images.component.css'
+    imports: [
+        NgForOf
+    ],
+  templateUrl: './stats.component.html',
+  styleUrl: './stats.component.css'
 })
-export class ImagesComponent implements OnInit {
+export class StatsComponent implements OnInit {
 
-  images?: DockerImages;
+  statistics?: DockerStatistics;
   result?: Message;
   loading = false;
 
@@ -23,7 +26,7 @@ export class ImagesComponent implements OnInit {
   async ngOnInit() {
     this.loading = true;
     try {
-      this.images = await this.api.getClient().execute().images({});
+      this.statistics = await this.api.getClient().execute().stats({});
     } catch (error) {
       this.result = this.error.convert(error);
     }

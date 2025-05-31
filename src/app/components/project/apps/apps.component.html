@@ -75,4 +75,4 @@
 </ul>
 <div [ngbNavOutlet]="nav" class="mb-3"></div>
 
-<button type="button" (click)="add()" class="btn btn-success me-1">Add App</button>
+<button *ngIf="!readonly" type="button" (click)="add()" [disabled]="disabled" class="btn btn-success me-1">Add App</button>

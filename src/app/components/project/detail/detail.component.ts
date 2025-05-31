@@ -19,6 +19,7 @@ export class DetailComponent extends Detail<Project> {
   statistics?: DockerStatistics;
   processes?: DockerProcesses;
   loading = false;
+  active?: number;
 
   constructor(private service: ProjectService, private api: ApiService, route: ActivatedRoute, router: Router, error: ErrorService) {
     super(route, router, error);
@@ -38,40 +39,10 @@ export class DetailComponent extends Detail<Project> {
     this.loading = false;
   }
 
-  async doLogs(id: any) {
-    this.loading = true;
-    try {
-      this.result = await this.api.getClient().project().execute().logs('' + id, {});
-    } catch (error) {
-      this.result = this.error.convert(error);
-    }
-    this.loading = false;
-  }
-
-  async doPs(id: any) {
-    this.loading = true;
-    try {
-      this.processes = await this.api.getClient().project().execute().ps('' + id, {});
-    } catch (error) {
-      this.result = this.error.convert(error);
-    }
-    this.loading = false;
-  }
-
   async doPull(id: any) {
     this.loading = true;
     try {
       this.result = await this.api.getClient().project().execute().pull('' + id, {});
-    } catch (error) {
-      this.result = this.error.convert(error);
-    }
-    this.loading = false;
-  }
-
-  async doStats(id: any) {
-    this.loading = true;
-    try {
-      this.statistics = await this.api.getClient().project().execute().stats('' + id, {});
     } catch (error) {
       this.result = this.error.convert(error);
     }

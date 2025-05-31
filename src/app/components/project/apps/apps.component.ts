@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ProjectApp} from "../../../generated/ProjectApp";
 import {FormsModule} from "@angular/forms";
-import {NgForOf, NgIf} from "@angular/common";
+import {JsonPipe, NgForOf, NgIf} from "@angular/common";
 import {NgbNav, NgbNavContent, NgbNavItem, NgbNavLinkButton, NgbNavOutlet} from "@ng-bootstrap/ng-bootstrap";
 import {FusioSdkModule} from "ngx-fusio-sdk";
 import {LinkComponent} from "./link/link.component";
@@ -21,7 +21,8 @@ import {VolumeComponent} from "./volume/volume.component";
     NgbNavOutlet,
     NgIf,
     LinkComponent,
-    VolumeComponent
+    VolumeComponent,
+    JsonPipe
   ],
   templateUrl: './apps.component.html',
   styleUrl: './apps.component.css'
@@ -31,6 +32,7 @@ export class AppsComponent {
   @Input() apps!: Array<ProjectApp>
   @Output() dataChange = new EventEmitter<Array<ProjectApp>>();
   @Input() active?: number;
+  @Input() readonly = false;
   @Input() disabled = false;
 
   add() {

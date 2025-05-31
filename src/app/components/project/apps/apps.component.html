@@ -9,57 +9,65 @@
       <div class="mb-3 row mt-3">
         <label for="name_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Name</label>
         <div class="col-sm-10">
-          <div class="input-group">
+          <div class="input-group" *ngIf="!readonly">
             <input type="text" id="name_{{ appIndex }}" name="name_{{ appIndex }}" [(ngModel)]="app.name" [disabled]="disabled" class="form-control">
           </div>
+          <div *ngIf="readonly">{{ app.name }}</div>
         </div>
       </div>
       <div class="mb-3 row">
         <label for="image_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Image</label>
         <div class="col-sm-10">
-          <div class="input-group">
+          <div class="input-group" *ngIf="!readonly">
             <input type="text" id="image_{{ appIndex }}" name="image_{{ appIndex }}" [(ngModel)]="app.image" [disabled]="disabled" class="form-control">
           </div>
+          <div *ngIf="readonly">{{ app.image }}</div>
         </div>
       </div>
-      <div class="mb-3 row">
+      <div class="mb-3 row" *ngIf="app.domains">
         <label for="domains_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Domains</label>
-        <div class="col-sm-10" *ngIf="app.domains">
-          <fusio-form-list id="domains_{{ appIndex }}" name="domains_{{ appIndex }}" [data]="app.domains" (dataChange)="app.domains = $event" [disabled]="disabled"></fusio-form-list>
+        <div class="col-sm-10">
+          <fusio-form-list *ngIf="!readonly" id="domains_{{ appIndex }}" name="domains_{{ appIndex }}" [data]="app.domains" (dataChange)="app.domains = $event" [disabled]="disabled"></fusio-form-list>
+          <div *ngIf="readonly">{{ app.domains }}</div>
         </div>
       </div>
       <div class="mb-3 row">
         <label for="cache_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Cache</label>
         <div class="col-sm-10">
-          <div class="form-check form-switch">
+          <div class="form-check form-switch" *ngIf="!readonly">
             <input id="cache_{{ appIndex }}" name="cache_{{ appIndex }}" [(ngModel)]="app.cache" [disabled]="disabled" type="checkbox" role="switch" class="form-check-input">
           </div>
+          <div *ngIf="readonly">{{ app.cache }}</div>
         </div>
       </div>
       <div class="mb-3 row">
         <label for="port_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Port</label>
         <div class="col-sm-10">
-          <div class="input-group">
+          <div class="input-group" *ngIf="!readonly">
             <input type="number" id="port_{{ appIndex }}" name="port_{{ appIndex }}" [(ngModel)]="app.port" [disabled]="disabled" class="form-control">
           </div>
+          <div *ngIf="readonly">{{ app.port }}</div>
         </div>
       </div>
-      <div class="mb-3 row">
+      <div class="mb-3 row" *ngIf="app.environment">
         <label for="environment_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Environment</label>
-        <div class="col-sm-10" *ngIf="app.environment">
-          <fusio-form-map id="environment_{{ appIndex }}" name="environment_{{ appIndex }}" [data]="app.environment" (dataChange)="app.environment = $event" [disabled]="disabled"></fusio-form-map>
+        <div class="col-sm-10">
+          <fusio-form-map *ngIf="!readonly" id="environment_{{ appIndex }}" name="environment_{{ appIndex }}" [data]="app.environment" (dataChange)="app.environment = $event" [disabled]="disabled"></fusio-form-map>
+          <div *ngIf="readonly"><pre>{{ app.environment|json }}</pre></div>
         </div>
       </div>
-      <div class="mb-3 row">
+      <div class="mb-3 row" *ngIf="app.volumes">
         <label for="volumes_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Volumes</label>
-        <div class="col-sm-10" *ngIf="app.volumes">
-          <app-project-apps-volume id="volumes_{{ appIndex }}" name="volumes_{{ appIndex }}" [data]="app.volumes" (dataChange)="app.volumes = $event" [disabled]="disabled"></app-project-apps-volume>
+        <div class="col-sm-10">
+          <app-project-apps-volume *ngIf="!readonly" id="volumes_{{ appIndex }}" name="volumes_{{ appIndex }}" [data]="app.volumes" (dataChange)="app.volumes = $event" [disabled]="disabled"></app-project-apps-volume>
+          <div *ngIf="readonly"><pre>{{ app.volumes|json }}</pre></div>
         </div>
       </div>
-      <div class="mb-3 row">
+      <div class="mb-3 row" *ngIf="app.links">
         <label for="links_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Links</label>
-        <div class="col-sm-10" *ngIf="app.links">
-          <app-project-apps-link id="links_{{ appIndex }}" name="links_{{ appIndex }}" [containers]="getContainerNames(app)" [data]="app.links" (dataChange)="app.links = $event" [disabled]="disabled"></app-project-apps-link>
+        <div class="col-sm-10">
+          <app-project-apps-link *ngIf="!readonly" id="links_{{ appIndex }}" name="links_{{ appIndex }}" [containers]="getContainerNames(app)" [data]="app.links" (dataChange)="app.links = $event" [disabled]="disabled"></app-project-apps-link>
+          <div *ngIf="readonly"><pre>{{ app.links|json }}</pre></div>
         </div>
       </div>
     </ng-template>

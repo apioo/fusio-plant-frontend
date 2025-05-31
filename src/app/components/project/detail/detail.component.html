@@ -43,9 +43,9 @@
       <div class="col-lg-2 fw-bold">Name</div>
       <div class="col-lg-10">{{selected.name}}</div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="selected.apps">
       <div class="col-lg-2 fw-bold">Apps</div>
-      <div class="col-lg-10"><pre>{{selected.apps|json}}</pre></div>
+      <div class="col-lg-10"><app-project-apps [apps]="selected.apps" [active]="active" [readonly]="true"></app-project-apps></div>
     </div>
   </div>
   <div class="fusio-json" *ngIf="jsonView">

@@ -39,7 +39,7 @@
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-    <div class="row" *ngIf="selected.apps">
+    <div *ngIf="selected.apps">
       <app-project-apps [apps]="selected.apps" [active]="active" [readonly]="true"></app-project-apps>
     </div>
   </div>

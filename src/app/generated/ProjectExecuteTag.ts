@@ -15,6 +15,42 @@ import {Passthru} from "./Passthru";
 
 export class ProjectExecuteTag extends TagAbstract {
     /**
+     * Deploys the latest version
+     *
+     * @returns {Promise<Message>}
+     * @throws {MessageException}
+     * @throws {ClientException}
+     */
+    public async deploy(id: string, payload: Passthru): Promise<Message> {
+        const url = this.parser.url('/project/:id/execute/deploy', {
+            'id': id,
+        });
+
+        let request: HttpRequest = {
+            url: url,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            params: this.parser.query({
+            }, [
+            ]),
+            data: payload
+        };
+
+        const response = await this.httpClient.request(request);
+        if (response.ok) {
+            return await response.json() as Message;
+        }
+
+        const statusCode = response.status;
+        if (statusCode >= 0 && statusCode <= 999) {
+            throw new MessageException(await response.json() as Message);
+        }
+
+        throw new UnknownStatusCodeException('The server returned an unknown status code: ' + statusCode);
+    }
+    /**
      * Pulls the latest version
      *
      * @returns {Promise<Message>}

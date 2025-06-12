@@ -57,8 +57,28 @@
       <button type="button" class="btn btn-primary" disabled *ngIf="loading"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span role="status" class="ms-1">Updating ...</span></button>
     </ng-container>
     <ng-container *ngIf="mode === 3">
-      <button type="button" class="btn btn-danger" *ngIf="!loading" (click)="doDelete(entity)">Delete</button>
+      <button type="button" class="btn btn-danger" *ngIf="!loading" (click)="confirmDelete(deleteModal, entity)">Delete</button>
       <button type="button" class="btn btn-danger" disabled *ngIf="loading"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span role="status" class="ms-1">Deleting ...</span></button>
     </ng-container>
   </div>
 </form>
+
+<ng-template #deleteModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Delete Project</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="projectName">Name</label>
+      <input type="text" [(ngModel)]="deleteProjectName" id="projectName" required class="form-control" aria-describedby="projectNameHelpBlock">
+      <div id="projectNameHelpBlock" class="form-text">
+        Enter the name of your project to confirm that you really want to delete the project. This action permanently removes the project
+        from the server, this action can not be undone.
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close()">Delete</button>
+  </div>
+</ng-template>

@@ -1,10 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {ErrorService, Form} from "ngx-fusio-sdk";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProjectService} from "../../../services/project.service";
 import {Project} from "../../../generated/Project";
 import {ApiService} from "../../../api.service";
 import {Preset} from "../../../generated/Preset";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-project-form',
@@ -19,9 +20,31 @@ export class FormComponent extends Form<Project> {
   variants?: Array<Preset>;
   active?: number;
   loading = false;
+  deleteProjectName = '';
 
-  constructor(private service: ProjectService, private api: ApiService, route: ActivatedRoute, router: Router, error: ErrorService) {
+  constructor(private service: ProjectService, private api: ApiService, private modal: NgbModal, route: ActivatedRoute, router: Router, error: ErrorService) {
     super(route, router, error);
+  }
+
+  confirmDelete(content: any, entity: Project) {
+    this.deleteProjectName = '';
+    this.modal.open(content).result.then(async () => {
+      const deletionConfirmed = this.deleteProjectName && entity.name === this.deleteProjectName;
+      if (!deletionConfirmed) {
+        this.response = {
+          success: false,
+          message: 'Project deletion was not confirmed, the project was not deleted',
+        };
+        return;
+      }
+
+      try {
+        await this.doDelete(entity);
+      } catch (e) {
+        this.response = this.error.convert(e);
+      }
+    }, (reason) => {
+    });
   }
 
   protected override async onLoad() {
@@ -49,6 +72,11 @@ export class FormComponent extends Form<Project> {
   }
 
   protected override onSubmit(): void
+  {
+    this.loading = false;
+  }
+
+  protected override onError(): void
   {
     this.loading = false;
   }

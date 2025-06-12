@@ -86,6 +86,6 @@ export class Client extends ClientAbstract {
 
     public static buildAnonymous(): Client
     {
-        return new Client('http://127.0.0.1/projects/fusio-projects/plant/backend/public', new Anonymous());
+        return new Client('http://localhost', new Anonymous());
     }
 }

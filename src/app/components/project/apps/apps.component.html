@@ -49,6 +49,15 @@
           <div *ngIf="readonly">{{ app.port }}</div>
         </div>
       </div>
+      <div class="mb-3 row">
+        <label for="command_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Command</label>
+        <div class="col-sm-10">
+          <div class="input-group" *ngIf="!readonly">
+            <input type="text" id="command_{{ appIndex }}" name="command_{{ appIndex }}" [(ngModel)]="app.command" [disabled]="disabled" class="form-control">
+          </div>
+          <div *ngIf="readonly">{{ app.command }}</div>
+        </div>
+      </div>
       <div class="mb-3 row" *ngIf="app.environment">
         <label for="environment_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Environment</label>
         <div class="col-sm-10">

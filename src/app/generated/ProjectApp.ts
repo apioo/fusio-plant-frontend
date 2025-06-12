@@ -14,6 +14,7 @@ export interface ProjectApp {
     domains?: Array<string>
     cache?: boolean
     port?: number
+    command?: string
     environment?: Record<string, string>
     volumes?: Array<ProjectAppVolume>
     links?: Array<string>

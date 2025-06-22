@@ -3,9 +3,14 @@
 
 <ngb-alert type="info">Through this panel you can obtain SSL certificates for your domain.</ngb-alert>
 
-<fusio-message [response]="result"></fusio-message>
+<div *ngIf="result" class="mt-3">
+  <fusio-message [response]="result"></fusio-message>
+  <div style="height:200px;" class="mt-3" *ngIf="result?.output">
+    <ngx-monaco-editor style="height:100%" name="result" [options]="{theme: 'vs-light'}" [ngModel]="result.output"></ngx-monaco-editor>
+  </div>
+</div>
 
-<form>
+<form class="mt-3">
   <div class="mb-3">
     <label for="domain" class="form-label">Domain</label>
     <input type="text" class="form-control" id="domain" name="domain" [(ngModel)]="domain">

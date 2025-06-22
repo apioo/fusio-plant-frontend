@@ -23,7 +23,13 @@
             "assets": [
               "src/.htaccess",
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "ignore": ["**/dev/**/*", "**/esm/**/*", "**/min-maps/**/*"],
+                "input": "node_modules/monaco-editor",
+                "output": "assets/monaco"
+              }
             ],
             "styles": [
               "src/styles.css"
@@ -92,7 +98,13 @@
             "assets": [
               "src/.htaccess",
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "ignore": ["**/dev/**/*", "**/esm/**/*", "**/min-maps/**/*"],
+                "input": "node_modules/monaco-editor",
+                "output": "assets/monaco"
+              }
             ],
             "styles": [
               "src/styles.css"

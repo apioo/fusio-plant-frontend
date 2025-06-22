@@ -6,8 +6,13 @@ you want to fetch images from a private docker registry.</ngb-alert>
 
 <div *ngIf="result" class="mt-3">
   <fusio-message [response]="result"></fusio-message>
-  <div style="height:200px;" class="mt-3" *ngIf="result?.output">
-    <ngx-monaco-editor style="height:100%" name="result" [options]="{theme: 'vs-light'}" [ngModel]="result.output"></ngx-monaco-editor>
+  <div class="card" *ngIf="result?.output">
+    <div class="card-header">Output</div>
+    <div class="card-body">
+      <div style="height:200px;">
+        <ngx-monaco-editor style="height:100%" name="result" [options]="{theme: 'vs-light'}" [ngModel]="result.output"></ngx-monaco-editor>
+      </div>
+    </div>
   </div>
 </div>
 

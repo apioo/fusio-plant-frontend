@@ -10,5 +10,8 @@
 </div>
 
 <div *ngIf="!loading">
+  <div class="btn-group" role="group">
+    <a (click)="fetchLogs()" class="btn btn-primary fusio-btn-update">Refresh</a>
+  </div>
   <pre>{{logs?.output}}</pre>
 </div>

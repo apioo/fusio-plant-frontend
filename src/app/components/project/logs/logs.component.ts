@@ -12,6 +12,7 @@ import {DockerLogs} from "../../../generated/DockerLogs";
 })
 export class LogsComponent implements OnInit {
 
+  projectId?: string;
   logs?: DockerLogs;
   result?: Message;
   loading = false;
@@ -21,19 +22,24 @@ export class LogsComponent implements OnInit {
 
   async ngOnInit() {
     this.route.params.subscribe(async (params) => {
-      const projectId = params['id'];
-      if (!projectId) {
-        return;
-      }
+      this.projectId = params['id'];
 
-      this.loading = true;
-      try {
-        this.logs = await this.api.getClient().project().execute().logs(projectId, {});
-      } catch (error) {
-        this.result = this.error.convert(error);
-      }
-      this.loading = false;
+      await this.fetchLogs();
     });
+  }
+
+  async fetchLogs() {
+    if (!this.projectId) {
+      return;
+    }
+
+    this.loading = true;
+    try {
+      this.logs = await this.api.getClient().project().execute().logs(this.projectId, {});
+    } catch (error) {
+      this.result = this.error.convert(error);
+    }
+    this.loading = false;
   }
 
 }

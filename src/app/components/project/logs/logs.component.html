@@ -13,5 +13,7 @@
   <div class="btn-group" role="group">
     <a (click)="fetchLogs()" class="btn btn-primary fusio-btn-update">Refresh</a>
   </div>
-  <pre>{{logs?.output}}</pre>
+  <div style="height:500px;" class="mt-3" *ngIf="logs?.output">
+    <ngx-monaco-editor style="height:100%" name="result" [options]="{theme: 'vs-light', readOnly: true}" [ngModel]="logs?.output"></ngx-monaco-editor>
+  </div>
 </div>

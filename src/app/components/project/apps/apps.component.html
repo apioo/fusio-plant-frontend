@@ -28,7 +28,11 @@
         <label for="domains_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Domains</label>
         <div class="col-sm-10">
           <fusio-form-list *ngIf="!readonly" id="domains_{{ appIndex }}" name="domains_{{ appIndex }}" [data]="app.domains" (dataChange)="app.domains = $event" [disabled]="disabled"></fusio-form-list>
-          <div *ngIf="readonly">{{ app.domains }}</div>
+          <div *ngIf="readonly">
+            <ul>
+              <li *ngFor="let domain of app.domains"><a href="https://{{ domain }}">{{ domain }}</a></li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="mb-3 row">

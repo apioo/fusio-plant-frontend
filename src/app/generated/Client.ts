@@ -8,6 +8,7 @@ import {Anonymous} from "sdkgen-client"
 import {ClientException, UnknownStatusCodeException} from "sdkgen-client";
 
 import {AuthorizationTag} from "./AuthorizationTag";
+import {BackupTag} from "./BackupTag";
 import {ConsumerTag} from "./ConsumerTag";
 import {DashboardTag} from "./DashboardTag";
 import {ExecuteTag} from "./ExecuteTag";
@@ -20,6 +21,14 @@ export class Client extends ClientAbstract {
     public authorization(): AuthorizationTag
     {
         return new AuthorizationTag(
+            this.httpClient,
+            this.parser
+        );
+    }
+
+    public backup(): BackupTag
+    {
+        return new BackupTag(
             this.httpClient,
             this.parser
         );

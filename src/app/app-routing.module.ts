@@ -13,6 +13,7 @@ import {StatsComponent} from "./components/insight/stats/stats.component";
 import {LogsComponent as ProjectLogsComponent} from "./components/project/logs/logs.component";
 import {PsComponent as ProjectPsComponent} from "./components/project/ps/ps.component";
 import {StatsComponent as ProjectStatsComponent} from "./components/project/stats/stats.component";
+import {BackupComponent} from "./components/action/backup/backup.component";
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [isAuthenticated] },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'insight/images', component: ImagesComponent, canActivate: [isAuthenticated] },
   { path: 'insight/ps', component: PsComponent, canActivate: [isAuthenticated] },
   { path: 'insight/stats', component: StatsComponent, canActivate: [isAuthenticated] },
+  { path: 'action/backup', component: BackupComponent, canActivate: [isAuthenticated] },
   { path: 'action/login', component: LoginComponent, canActivate: [isAuthenticated] },
   { path: 'action/certbot', component: CertbotComponent, canActivate: [isAuthenticated] },
   { path: 'account', component: AccountContainerComponent, canActivate: [isAuthenticated], children: AccountRoute.getAll() },

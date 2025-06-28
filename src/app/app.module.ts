@@ -22,9 +22,11 @@ import {PsComponent} from "./components/insight/ps/ps.component";
 import {StatsComponent} from "./components/insight/stats/stats.component";
 import {CertbotComponent} from "./components/action/certbot/certbot.component";
 import {LoginComponent} from "./components/action/login/login.component";
+import {BackupComponent} from "./components/action/backup/backup.component";
 
 @NgModule({
   declarations: [
+    BackupComponent,
     CertbotComponent,
     LoginComponent,
     ImagesComponent,

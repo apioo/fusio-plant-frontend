@@ -54,6 +54,10 @@ export class ConfigBuilder {
         title: 'Action',
         visible: false,
         children: [{
+          title: 'Backup',
+          icon: 'bi-building-fill-lock',
+          path: '/action/backup',
+        }, {
           title: 'Login',
           icon: 'bi-door-open',
           path: '/action/login',

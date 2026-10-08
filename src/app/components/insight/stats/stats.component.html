@@ -1,35 +1,40 @@
 
 <h1>Statistics</h1>
 
-<fusio-message [response]="result"></fusio-message>
+<fusio-message [response]="result()"></fusio-message>
 
-<div *ngIf="loading" class="text-center mt-5">
-  <div class="spinner-border" role="status">
-    <span class="visually-hidden">Loading...</span>
+@if (loading()) {
+  <div class="text-center mt-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
   </div>
-</div>
-
-<table *ngIf="!loading" class="table table-striped">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>CPU %</th>
-    <th>Mem Usage/Limit</th>
-    <th>Memory %</th>
-    <th>Net I/O</th>
-    <th>Block I/O</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let stat of statistics?.entry">
-    <td>{{stat.ID}}</td>
-    <td>{{stat.Name}}</td>
-    <td>{{stat.CPUPerc}}</td>
-    <td>{{stat.MemUsage}}</td>
-    <td>{{stat.MemPerc}}</td>
-    <td>{{stat.NetIO}}</td>
-    <td>{{stat.BlockIO}}</td>
-  </tr>
-  </tbody>
-</table>
+}
+@else {
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>CPU %</th>
+      <th>Mem Usage/Limit</th>
+      <th>Memory %</th>
+      <th>Net I/O</th>
+      <th>Block I/O</th>
+    </tr>
+    </thead>
+    <tbody>
+    @for (stat of statistics()?.entry; track $index) {
+      <tr>
+        <td>{{stat.ID}}</td>
+        <td>{{stat.Name}}</td>
+        <td>{{stat.CPUPerc}}</td>
+        <td>{{stat.MemUsage}}</td>
+        <td>{{stat.MemPerc}}</td>
+        <td>{{stat.NetIO}}</td>
+        <td>{{stat.BlockIO}}</td>
+      </tr>
+    }
+    </tbody>
+  </table>
+}

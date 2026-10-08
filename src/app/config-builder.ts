@@ -17,7 +17,7 @@ export class ConfigBuilder {
       baseUrl: baseUrl,
       title: 'Fusio Plant',
       version: '0.2',
-      logo: 'fusio_64px.png',
+      logo: 'assets/fusio_64px.png',
       appKey: appKey && appKey !== '${APP_KEY}' ? appKey : undefined,
       homePath: '/',
       loginPath: '/login',

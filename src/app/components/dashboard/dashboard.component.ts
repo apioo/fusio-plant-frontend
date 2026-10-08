@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {ApiService} from "../../api.service";
 import {ChartComponent} from "ngx-apexcharts";
 import {ChartConverter, ChartOptions} from "../../services/chart-converter.service";
-import {NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 
 @Component({
@@ -10,7 +9,6 @@ import {RouterLink} from "@angular/router";
   standalone: true,
   imports: [
     ChartComponent,
-    NgIf,
     RouterLink
   ],
   templateUrl: './dashboard.component.html',
@@ -18,36 +16,36 @@ import {RouterLink} from "@angular/router";
 })
 export class DashboardComponent implements OnInit {
 
-  cpuPerc?: ChartOptions
-  memPerc?: ChartOptions
-  netioReceived?: ChartOptions
-  netioSent?: ChartOptions
-  blockioWritten?: ChartOptions
-  blockioRead?: ChartOptions
+  cpuPerc = signal<ChartOptions|undefined>(undefined);
+  memPerc = signal<ChartOptions|undefined>(undefined);
+  netioReceived = signal<ChartOptions|undefined>(undefined);
+  netioSent = signal<ChartOptions|undefined>(undefined);
+  blockioWritten = signal<ChartOptions|undefined>(undefined);
+  blockioRead = signal<ChartOptions|undefined>(undefined);
 
-  constructor(private api: ApiService, private chartConverter: ChartConverter) {
-  }
+  private api = inject(ApiService);
+  private chartConverter = inject(ChartConverter);
 
   async ngOnInit(): Promise<void> {
     const maxElements = 12;
     const dashboard = await this.api.getClient().dashboard().getAll();
     if (dashboard.cpuPerc) {
-      this.cpuPerc = this.chartConverter.convert(dashboard.cpuPerc, maxElements);
+      this.cpuPerc.set(this.chartConverter.convert(dashboard.cpuPerc, maxElements));
     }
     if (dashboard.memPerc) {
-      this.memPerc = this.chartConverter.convert(dashboard.memPerc, maxElements);
+      this.memPerc.set(this.chartConverter.convert(dashboard.memPerc, maxElements));
     }
     if (dashboard.netioReceived) {
-      this.netioReceived = this.chartConverter.convert(dashboard.netioReceived, maxElements);
+      this.netioReceived.set(this.chartConverter.convert(dashboard.netioReceived, maxElements));
     }
     if (dashboard.netioSent) {
-      this.netioSent = this.chartConverter.convert(dashboard.netioSent, maxElements);
+      this.netioSent.set(this.chartConverter.convert(dashboard.netioSent, maxElements));
     }
     if (dashboard.blockioWritten) {
-      this.blockioWritten = this.chartConverter.convert(dashboard.blockioWritten, maxElements);
+      this.blockioWritten.set(this.chartConverter.convert(dashboard.blockioWritten, maxElements));
     }
     if (dashboard.blockioRead) {
-      this.blockioRead = this.chartConverter.convert(dashboard.blockioRead, maxElements);
+      this.blockioRead.set(this.chartConverter.convert(dashboard.blockioRead, maxElements));
     }
   }
 

@@ -1,5 +1,12 @@
 import {Routes} from '@angular/router';
-import {AccountContainerComponent, AccountRoute, EntityRoute, isAuthenticated, LoginComponent} from "ngx-fusio-sdk";
+import {
+  AccountContainerComponent,
+  AccountRoute,
+  AuthorizationRoute,
+  EntityRoute,
+  isAuthenticated,
+  LoginComponent
+} from "ngx-fusio-sdk";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {ListComponent as ProjectList} from "./components/project/list/list.component";
 import {DetailComponent as ProjectDetail} from "./components/project/detail/detail.component";
@@ -12,6 +19,7 @@ import {PsComponent} from "./components/insight/ps/ps.component";
 import {StatsComponent} from "./components/insight/stats/stats.component";
 import {BackupComponent} from "./components/action/backup/backup.component";
 import {CertbotComponent} from "./components/action/certbot/certbot.component";
+import {Munin} from "./components/insight/munin/munin";
 
 export const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [isAuthenticated] },
@@ -22,14 +30,10 @@ export const routes: Routes = [
   { path: 'insight/images', component: ImagesComponent, canActivate: [isAuthenticated] },
   { path: 'insight/ps', component: PsComponent, canActivate: [isAuthenticated] },
   { path: 'insight/stats', component: StatsComponent, canActivate: [isAuthenticated] },
+  { path: 'insight/munin', component: Munin, canActivate: [isAuthenticated] },
   { path: 'action/backup', component: BackupComponent, canActivate: [isAuthenticated] },
   { path: 'action/login', component: LoginComponent, canActivate: [isAuthenticated] },
   { path: 'action/certbot', component: CertbotComponent, canActivate: [isAuthenticated] },
-  { path: 'munin/disk', component: CertbotComponent, canActivate: [isAuthenticated] },
-  { path: 'munin/network', component: CertbotComponent, canActivate: [isAuthenticated] },
-  { path: 'munin/processes', component: CertbotComponent, canActivate: [isAuthenticated] },
-  { path: 'munin/radio', component: CertbotComponent, canActivate: [isAuthenticated] },
-  { path: 'munin/system', component: CertbotComponent, canActivate: [isAuthenticated] },
   { path: 'account', component: AccountContainerComponent, canActivate: [isAuthenticated], children: AccountRoute.getAll() },
-
+  ...AuthorizationRoute.getAll(),
 ];

@@ -1,31 +1,36 @@
 
 <h1>Images</h1>
 
-<fusio-message [response]="result"></fusio-message>
+<fusio-message [response]="result()"></fusio-message>
 
-<div *ngIf="loading" class="text-center mt-5">
-  <div class="spinner-border" role="status">
-    <span class="visually-hidden">Loading...</span>
+@if (loading()) {
+  <div class="text-center mt-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
   </div>
-</div>
-
-<table *ngIf="!loading" class="table table-striped">
-  <thead>
-  <tr>
-    <th>Repository</th>
-    <th>Tag</th>
-    <th>Image-ID</th>
-    <th>Created</th>
-    <th>Size</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let image of images?.entry">
-    <td>{{image.Repository}}</td>
-    <td>{{image.Tag}}</td>
-    <td>{{image.ID}}</td>
-    <td>{{image.CreatedSince}}</td>
-    <td>{{image.Size}}</td>
-  </tr>
-  </tbody>
-</table>
+}
+@else {
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Repository</th>
+      <th>Tag</th>
+      <th>Image-ID</th>
+      <th>Created</th>
+      <th>Size</th>
+    </tr>
+    </thead>
+    <tbody>
+    @for (image of images()?.entry; track $index) {
+      <tr>
+        <td>{{image.Repository}}</td>
+        <td>{{image.Tag}}</td>
+        <td>{{image.ID}}</td>
+        <td>{{image.CreatedSince}}</td>
+        <td>{{image.Size}}</td>
+      </tr>
+    }
+    </tbody>
+  </table>
+}

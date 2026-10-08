@@ -1,91 +1,131 @@
 
 <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
-  <li [ngbNavItem]="appIndex" *ngFor="let app of apps; index as appIndex">
-    <button ngbNavLink>
-      {{ app.name }}
-      <span class="btn-close ms-3 fw-light" (click)="remove(appIndex)"></span>
-    </button>
-    <ng-template ngbNavContent>
-      <div class="mb-3 row mt-3">
-        <label for="name_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Name</label>
-        <div class="col-sm-10">
-          <div class="input-group" *ngIf="!readonly">
-            <input type="text" id="name_{{ appIndex }}" name="name_{{ appIndex }}" [(ngModel)]="app.name" [disabled]="disabled" class="form-control">
-          </div>
-          <div *ngIf="readonly">{{ app.name }}</div>
-        </div>
-      </div>
-      <div class="mb-3 row">
-        <label for="image_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Image</label>
-        <div class="col-sm-10">
-          <div class="input-group" *ngIf="!readonly">
-            <input type="text" id="image_{{ appIndex }}" name="image_{{ appIndex }}" [(ngModel)]="app.image" [disabled]="disabled" class="form-control">
-          </div>
-          <div *ngIf="readonly">{{ app.image }}</div>
-        </div>
-      </div>
-      <div class="mb-3 row" *ngIf="app.domains">
-        <label for="domains_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Domains</label>
-        <div class="col-sm-10">
-          <fusio-form-list *ngIf="!readonly" id="domains_{{ appIndex }}" name="domains_{{ appIndex }}" [data]="app.domains" (dataChange)="app.domains = $event" [disabled]="disabled"></fusio-form-list>
-          <div *ngIf="readonly">
-            <ul>
-              <li *ngFor="let domain of app.domains"><a href="https://{{ domain }}">{{ domain }}</a></li>
-            </ul>
+  @for (app of apps(); track $index) {
+    <li [ngbNavItem]="$index">
+      <button ngbNavLink>
+        {{ app.name }}
+        <span class="btn-close ms-3 fw-light" (click)="remove($index)"></span>
+      </button>
+      <ng-template ngbNavContent>
+        <div class="mb-3 row mt-3">
+          <label [for]="'name_' + $index" class="col-sm-2 col-form-label fw-bold">Name</label>
+          <div class="col-sm-10">
+            @if (!readonly()) {
+              <div class="input-group">
+                <input type="text" [id]="'name_' + $index" [name]="'name_' + $index" [(ngModel)]="app.name" (ngModelChange)="onChange()" [disabled]="disabled()" class="form-control">
+              </div>
+            } @else {
+              <div>{{ app.name }}</div>
+            }
           </div>
         </div>
-      </div>
-      <div class="mb-3 row">
-        <label for="cache_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Cache</label>
-        <div class="col-sm-10">
-          <div class="form-check form-switch" *ngIf="!readonly">
-            <input id="cache_{{ appIndex }}" name="cache_{{ appIndex }}" [(ngModel)]="app.cache" [disabled]="disabled" type="checkbox" role="switch" class="form-check-input">
+        <div class="mb-3 row">
+          <label [for]="'image_' + $index" class="col-sm-2 col-form-label fw-bold">Image</label>
+          <div class="col-sm-10">
+            @if (!readonly()) {
+              <div class="input-group">
+                <input type="text" [id]="'image_' + $index" [name]="'image_' + $index" [(ngModel)]="app.image" (ngModelChange)="onChange()" [disabled]="disabled()" class="form-control">
+              </div>
+            } @else {
+              <div>{{ app.image }}</div>
+            }
           </div>
-          <div *ngIf="readonly">{{ app.cache }}</div>
         </div>
-      </div>
-      <div class="mb-3 row">
-        <label for="port_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Port</label>
-        <div class="col-sm-10">
-          <div class="input-group" *ngIf="!readonly">
-            <input type="number" id="port_{{ appIndex }}" name="port_{{ appIndex }}" [(ngModel)]="app.port" [disabled]="disabled" class="form-control">
+        @if (app.domains) {
+          <div class="mb-3 row">
+            <label [for]="'domains_' + $index" class="col-sm-2 col-form-label fw-bold">Domains</label>
+            <div class="col-sm-10">
+              @if (!readonly()) {
+                <fusio-form-list [id]="'domains_' + $index" [name]="'domains_' + $index" [data]="app.domains" (dataChange)="app.domains = $event; onChange()" [disabled]="disabled()"></fusio-form-list>
+              } @else {
+                <ul>
+                  @for (domain of app.domains; track domain) {
+                    <li><a [href]="'https://' + domain">{{ domain }}</a></li>
+                  }
+                </ul>
+              }
+            </div>
           </div>
-          <div *ngIf="readonly">{{ app.port }}</div>
-        </div>
-      </div>
-      <div class="mb-3 row">
-        <label for="command_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Command</label>
-        <div class="col-sm-10">
-          <div class="input-group" *ngIf="!readonly">
-            <input type="text" id="command_{{ appIndex }}" name="command_{{ appIndex }}" [(ngModel)]="app.command" [disabled]="disabled" class="form-control">
+        }
+        <div class="mb-3 row">
+          <label [for]="'cache_' + $index" class="col-sm-2 col-form-label fw-bold">Cache</label>
+          <div class="col-sm-10">
+            @if (!readonly()) {
+              <div class="form-check form-switch">
+                <input [id]="'cache_' + $index" [name]="'cache_' + $index" [(ngModel)]="app.cache" (ngModelChange)="onChange()" [disabled]="disabled()" type="checkbox" role="switch" class="form-check-input">
+              </div>
+            } @else {
+              <div>{{ app.cache }}</div>
+            }
           </div>
-          <div *ngIf="readonly">{{ app.command }}</div>
         </div>
-      </div>
-      <div class="mb-3 row" *ngIf="app.environment">
-        <label for="environment_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Environment</label>
-        <div class="col-sm-10">
-          <fusio-form-map *ngIf="!readonly" id="environment_{{ appIndex }}" name="environment_{{ appIndex }}" [data]="app.environment" (dataChange)="app.environment = $event" [disabled]="disabled"></fusio-form-map>
-          <div *ngIf="readonly"><pre>{{ app.environment|json }}</pre></div>
+        <div class="mb-3 row">
+          <label [for]="'port_' + $index" class="col-sm-2 col-form-label fw-bold">Port</label>
+          <div class="col-sm-10">
+            @if (!readonly()) {
+              <div class="input-group">
+                <input type="number" [id]="'port_' + $index" [name]="'port_' + $index" [(ngModel)]="app.port" (ngModelChange)="onChange()" [disabled]="disabled()" class="form-control">
+              </div>
+            } @else {
+              <div>{{ app.port }}</div>
+            }
+          </div>
         </div>
-      </div>
-      <div class="mb-3 row" *ngIf="app.volumes">
-        <label for="volumes_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Volumes</label>
-        <div class="col-sm-10">
-          <app-project-apps-volume *ngIf="!readonly" id="volumes_{{ appIndex }}" name="volumes_{{ appIndex }}" [data]="app.volumes" (dataChange)="app.volumes = $event" [disabled]="disabled"></app-project-apps-volume>
-          <div *ngIf="readonly"><pre>{{ app.volumes|json }}</pre></div>
+        <div class="mb-3 row">
+          <label [for]="'command_' + $index" class="col-sm-2 col-form-label fw-bold">Command</label>
+          <div class="col-sm-10">
+            @if (!readonly()) {
+              <div class="input-group">
+                <input type="text" [id]="'command_' + $index" [name]="'command_' + $index" [(ngModel)]="app.command" (ngModelChange)="onChange()" [disabled]="disabled()" class="form-control">
+              </div>
+            } @else {
+              <div>{{ app.command }}</div>
+            }
+          </div>
         </div>
-      </div>
-      <div class="mb-3 row" *ngIf="app.links">
-        <label for="links_{{ appIndex }}" class="col-sm-2 col-form-label fw-bold">Links</label>
-        <div class="col-sm-10">
-          <app-project-apps-link *ngIf="!readonly" id="links_{{ appIndex }}" name="links_{{ appIndex }}" [containers]="getContainerNames(app)" [data]="app.links" (dataChange)="app.links = $event" [disabled]="disabled"></app-project-apps-link>
-          <div *ngIf="readonly"><pre>{{ app.links|json }}</pre></div>
-        </div>
-      </div>
-    </ng-template>
-  </li>
+        @if (app.environment) {
+          <div class="mb-3 row">
+            <label [for]="'environment_' + $index" class="col-sm-2 col-form-label fw-bold">Environment</label>
+            <div class="col-sm-10">
+              @if (!readonly()) {
+                <fusio-form-map [id]="'environment_' + $index" [name]="'environment_' + $index" [data]="app.environment" (dataChange)="app.environment = $event; onChange()" [disabled]="disabled()"></fusio-form-map>
+              } @else {
+                <pre>{{ app.environment | json }}</pre>
+              }
+            </div>
+          </div>
+        }
+        @if (app.volumes) {
+          <div class="mb-3 row">
+            <label [for]="'volumes_' + $index" class="col-sm-2 col-form-label fw-bold">Volumes</label>
+            <div class="col-sm-10">
+              @if (!readonly()) {
+                <app-project-apps-volume [id]="'volumes_' + $index" [name]="'volumes_' + $index" [data]="app.volumes" (dataChange)="app.volumes = $event; onChange()" [disabled]="disabled()"></app-project-apps-volume>
+              } @else {
+                <pre>{{ app.volumes | json }}</pre>
+              }
+            </div>
+          </div>
+        }
+        @if (app.links) {
+          <div class="mb-3 row">
+            <label [for]="'links_' + $index" class="col-sm-2 col-form-label fw-bold">Links</label>
+            <div class="col-sm-10">
+              @if (!readonly()) {
+                <app-project-apps-link [id]="'links_' + $index" [name]="'links_' + $index" [containers]="getContainerNames(app)" [data]="app.links" (dataChange)="app.links = $event; onChange()" [disabled]="disabled()"></app-project-apps-link>
+              } @else {
+                <pre>{{ app.links | json }}</pre>
+              }
+            </div>
+          </div>
+        }
+      </ng-template>
+    </li>
+  }
 </ul>
+
 <div [ngbNavOutlet]="nav" class="mb-3"></div>
 
-<button *ngIf="!readonly" type="button" (click)="add()" [disabled]="disabled" class="btn btn-success me-1">Add App</button>
+@if (!readonly()) {
+  <button type="button" (click)="add()" [disabled]="disabled()" class="btn btn-success me-1">Add App</button>
+}

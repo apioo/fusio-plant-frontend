@@ -1,31 +1,34 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {Message} from "../../../generated/Message";
 import {ApiService} from "../../../api.service";
-import {ErrorService} from "ngx-fusio-sdk";
+import {ErrorService, MessageComponent} from "ngx-fusio-sdk";
 import {DockerImages} from "../../../generated/DockerImages";
 
 @Component({
   selector: 'app-system-images',
   templateUrl: './images.component.html',
+  imports: [
+    MessageComponent
+  ],
   styleUrl: './images.component.css'
 })
 export class ImagesComponent implements OnInit {
 
-  images?: DockerImages;
-  result?: Message;
-  loading = false;
+  images = signal<DockerImages|undefined>(undefined);
+  result = signal<Message|undefined>(undefined);
+  loading = signal<boolean>(false);
 
-  constructor(private api: ApiService, private error: ErrorService) {
-  }
+  private api = inject(ApiService);
+  private error = inject(ErrorService);
 
   async ngOnInit() {
-    this.loading = true;
+    this.loading.set(true);
     try {
-      this.images = await this.api.getClient().execute().images({});
+      this.images.set(await this.api.getClient().execute().images({}));
     } catch (error) {
-      this.result = this.error.convert(error);
+      this.result.set(this.error.convert(error));
     }
-    this.loading = false;
+    this.loading.set(false);
   }
 
 }

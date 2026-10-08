@@ -1,43 +1,52 @@
-import {Component} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {Message} from "../../../generated/Message";
 import {ApiService} from "../../../api.service";
-import {ErrorService, FusioSdkModule} from "ngx-fusio-sdk";
-import {DockerLogin} from "../../../generated/DockerLogin";
+import {ErrorService, MessageComponent} from "ngx-fusio-sdk";
 import {NgbAlert} from "@ng-bootstrap/ng-bootstrap";
+import {EditorComponent} from "ngx-monaco-editor-v2";
 import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-system-login',
   templateUrl: './login.component.html',
+  imports: [
+    NgbAlert,
+    MessageComponent,
+    EditorComponent,
+    FormsModule
+  ],
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
 
-  domain = '';
-  username = '';
-  password = '';
+  domain = signal<string>('');
+  username = signal<string>('');
+  password = signal<string>('');
 
-  result?: Message;
-  loading = false;
+  result = signal<Message|undefined>(undefined);
+  loading = signal<boolean>(false);
 
-  constructor(private api: ApiService, private error: ErrorService) {
-  }
+  private api = inject(ApiService);
+  private error = inject(ErrorService);
 
   async doLogin() {
-    if (!this.domain || !this.username || !this.password) {
+    const domain = this.domain();
+    const username = this.username();
+    const password = this.password();
+    if (!domain || !username || !password) {
       return;
     }
-    this.loading = true;
+    this.loading.set(true);
     try {
-      this.result = await this.api.getClient().execute().login({
-        domain: this.domain,
-        username: this.username,
-        password: this.password,
-      });
+      this.result.set(await this.api.getClient().execute().login({
+        domain: domain,
+        username: username,
+        password: password,
+      }));
     } catch (error) {
-      this.result = this.error.convert(error);
+      this.result.set(this.error.convert(error));
     }
-    this.loading = false;
+    this.loading.set(false);
   }
 
 }

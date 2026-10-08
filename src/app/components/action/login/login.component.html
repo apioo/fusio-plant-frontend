@@ -4,31 +4,39 @@
 <ngb-alert type="info">Through this panel you can login to a private docker registry. This is needed in case
 you want to fetch images from a private docker registry.</ngb-alert>
 
-<div *ngIf="result" class="mt-3">
-  <fusio-message [response]="result"></fusio-message>
-  <div class="card" *ngIf="result?.output">
-    <div class="card-header">Output</div>
-    <div class="card-body">
-      <div style="height:200px;">
-        <ngx-monaco-editor style="height:100%" name="result" [options]="{theme: 'vs-light'}" [ngModel]="result.output"></ngx-monaco-editor>
+@if (result(); as result) {
+  <div class="mt-3">
+    <fusio-message [response]="result"></fusio-message>
+    @if (result?.output) {
+      <div class="card">
+        <div class="card-header">Output</div>
+        <div class="card-body">
+          <div style="height:200px;">
+            <ngx-monaco-editor style="height:100%" name="result" [options]="{theme: 'vs-light'}" [ngModel]="result.output"></ngx-monaco-editor>
+          </div>
+        </div>
       </div>
-    </div>
+    }
   </div>
-</div>
+}
 
 <form class="mt-3">
   <div class="mb-3">
     <label for="domain" class="form-label">Domain</label>
-    <input type="text" class="form-control" id="domain" name="domain" [(ngModel)]="domain" placeholder="Domain i.e. ghcr.io">
+    <input type="text" class="form-control" id="domain" name="domain" [ngModel]="domain()" (ngModelChange)="domain.set($event)" placeholder="Domain i.e. ghcr.io">
   </div>
   <div class="mb-3">
     <label for="username" class="form-label">Username</label>
-    <input type="text" class="form-control" id="username" name="username" [(ngModel)]="username" placeholder="Username">
+    <input type="text" class="form-control" id="username" name="username" [ngModel]="username()" (ngModelChange)="username.set($event)" placeholder="Username">
   </div>
   <div class="mb-3">
     <label for="password" class="form-label">Password</label>
-    <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" placeholder="Password or GitHub PAT">
+    <input type="password" class="form-control" id="password" name="password" [ngModel]="password()" (ngModelChange)="password.set($event)" placeholder="Password or GitHub PAT">
   </div>
-  <button *ngIf="!loading" (click)="doLogin()" class="btn btn-primary">Login</button>
-  <button *ngIf="loading" class="btn btn-primary" disabled><span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span role="status" class="ms-1">Login ...</span></button>
+  @if (!loading()) {
+    <button (click)="doLogin()" class="btn btn-primary">Login</button>
+  }
+  @else {
+    <button class="btn btn-primary" disabled><span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span role="status" class="ms-1">Login ...</span></button>
+  }
 </form>

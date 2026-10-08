@@ -1,33 +1,38 @@
 
 <h1>Processes</h1>
 
-<fusio-message [response]="result"></fusio-message>
+<fusio-message [response]="result()"></fusio-message>
 
-<div *ngIf="loading" class="text-center mt-5">
-  <div class="spinner-border" role="status">
-    <span class="visually-hidden">Loading...</span>
+@if (loading()) {
+  <div class="text-center mt-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
   </div>
-</div>
-
-<table *ngIf="!loading" class="table table-striped">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Image</th>
-    <th>Command</th>
-    <th>Created</th>
-    <th>Uptime</th>
-    <th>Ports</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let process of processes?.entry">
-    <td>{{process.ID}}</td>
-    <td>{{process.Image}}</td>
-    <td>{{process.Command}}</td>
-    <td>{{process.CreatedAt}}</td>
-    <td>{{process.RunningFor}}</td>
-    <td>{{process.Ports}}</td>
-  </tr>
-  </tbody>
-</table>
+}
+@else {
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Image</th>
+      <th>Command</th>
+      <th>Created</th>
+      <th>Uptime</th>
+      <th>Ports</th>
+    </tr>
+    </thead>
+    <tbody>
+    @for (process of processes()?.entry; track $index) {
+      <tr>
+        <td>{{process.ID}}</td>
+        <td>{{process.Image}}</td>
+        <td>{{process.Command}}</td>
+        <td>{{process.CreatedAt}}</td>
+        <td>{{process.RunningFor}}</td>
+        <td>{{process.Ports}}</td>
+      </tr>
+    }
+    </tbody>
+  </table>
+}

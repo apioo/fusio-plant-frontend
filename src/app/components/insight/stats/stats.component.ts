@@ -1,31 +1,34 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {Message} from "../../../generated/Message";
 import {ApiService} from "../../../api.service";
-import {ErrorService} from "ngx-fusio-sdk";
+import {ErrorService, MessageComponent} from "ngx-fusio-sdk";
 import {DockerStatistics} from "../../../generated/DockerStatistics";
 
 @Component({
   selector: 'app-system-stats',
   templateUrl: './stats.component.html',
+  imports: [
+    MessageComponent
+  ],
   styleUrl: './stats.component.css'
 })
 export class StatsComponent implements OnInit {
 
-  statistics?: DockerStatistics;
-  result?: Message;
-  loading = false;
+  statistics = signal<DockerStatistics|undefined>(undefined);
+  result = signal<Message|undefined>(undefined);
+  loading = signal<boolean>(false);
 
-  constructor(private api: ApiService, private error: ErrorService) {
-  }
+  private api = inject(ApiService);
+  private error = inject(ErrorService);
 
   async ngOnInit() {
-    this.loading = true;
+    this.loading.set(true);
     try {
-      this.statistics = await this.api.getClient().execute().stats({});
+      this.statistics.set(await this.api.getClient().execute().stats({}));
     } catch (error) {
-      this.result = this.error.convert(error);
+      this.result.set(this.error.convert(error));
     }
-    this.loading = false;
+    this.loading.set(false);
   }
 
 }

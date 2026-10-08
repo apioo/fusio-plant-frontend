@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {BackendUser} from "fusio-sdk";
-import {BootstrapComponent, UserService} from "ngx-fusio-sdk";
+import {Component} from '@angular/core';
+import {BootstrapComponent} from "ngx-fusio-sdk";
 
 @Component({
   selector: 'app-root',
@@ -8,16 +7,7 @@ import {BootstrapComponent, UserService} from "ngx-fusio-sdk";
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App implements OnInit {
-
-  user?: BackendUser;
-
-  constructor(private userMeta: UserService) { }
-
-  ngOnInit(): void {
-    this.user = this.userMeta.get();
-  }
-
+export class App {
 }
 
 declare global {

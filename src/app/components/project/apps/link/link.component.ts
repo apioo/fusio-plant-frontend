@@ -1,76 +1,57 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, input, linkedSignal, model, signal} from '@angular/core';
 import {FormsModule} from "@angular/forms";
-import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-project-apps-link',
   standalone: true,
   imports: [
-    FormsModule,
-    NgForOf
+    FormsModule
   ],
   templateUrl: './link.component.html',
   styleUrl: './link.component.css'
 })
-export class LinkComponent implements OnInit {
+export class LinkComponent {
 
-  @Input() name!: string;
-  @Input() disabled: boolean = false;
-  @Input() data: Array<string> = [];
-  @Input() containers: Array<string> = [];
-  @Output() dataChange = new EventEmitter<Array<string>>();
+  name = input<string>('');
+  disabled = input<boolean>(false);
+  containers = input<Array<string>>([]);
 
-  local: Array<Entry> = [];
-  newValue: any = '';
+  data = model<Array<string>>([]);
 
-  constructor() { }
+  local = linkedSignal<Array<string>, Array<Entry>>({
+    source: () => this.data(),
+    computation: (data) => (data ? data.map((value) => ({ value })) : [])
+  });
 
-  ngOnInit(): void {
-    if (this.data) {
-      this.local = this.toLocal(this.data);
-    }
-  }
+  newValue = signal<string>('');
 
-  doChange(index: number, value?: any) {
-    this.local[index].value = value;
-    this.dataChange.emit(this.fromLocal());
+  doChange(index: number, value: string) {
+    this.local.update((current) => {
+      const next = [...current];
+      next[index] = { value };
+      return next;
+    });
+    this.syncData();
   }
 
   doAdd() {
-    if (!this.newValue) {
+    const value = this.newValue().trim();
+    if (!value) {
       return;
     }
 
-    let newValue = this.newValue;
-
-    this.local.push({
-      value: newValue
-    });
-    this.newValue = '';
-    this.dataChange.emit(this.fromLocal());
+    this.local.update((current) => [...current, { value }]);
+    this.newValue.set('');
+    this.syncData();
   }
 
   doRemove(index: number) {
-    this.local.splice(index, 1);
-    this.dataChange.emit(this.fromLocal());
+    this.local.update((current) => current.filter((_, i) => i !== index));
+    this.syncData();
   }
 
-  toLocal(data: Array<any>): Array<Entry> {
-    let local: Array<Entry> = [];
-    data.forEach((value) => {
-      local.push({
-        value: value
-      });
-    })
-    return local;
-  }
-
-  fromLocal(): Array<any> {
-    let data: Array<any> = [];
-    this.local.forEach((entry: Entry) => {
-      data.push(entry.value);
-    });
-    return data;
+  private syncData() {
+    this.data.set(this.local().map((entry) => entry.value));
   }
 
 }

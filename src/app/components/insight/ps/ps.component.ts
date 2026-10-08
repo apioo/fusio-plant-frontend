@@ -1,31 +1,34 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {Message} from "../../../generated/Message";
 import {ApiService} from "../../../api.service";
-import {ErrorService} from "ngx-fusio-sdk";
+import {ErrorService, MessageComponent} from "ngx-fusio-sdk";
 import {DockerProcesses} from "../../../generated/DockerProcesses";
 
 @Component({
   selector: 'app-system-ps',
   templateUrl: './ps.component.html',
+  imports: [
+    MessageComponent
+  ],
   styleUrl: './ps.component.css'
 })
 export class PsComponent implements OnInit {
 
-  processes?: DockerProcesses;
-  result?: Message;
-  loading = false;
+  processes = signal<DockerProcesses|undefined>(undefined);
+  result = signal<Message|undefined>(undefined);
+  loading = signal<boolean>(false);
 
-  constructor(private api: ApiService, private error: ErrorService) {
-  }
+  private api = inject(ApiService);
+  private error = inject(ErrorService);
 
   async ngOnInit() {
-    this.loading = true;
+    this.loading.set(true);
     try {
-      this.processes = await this.api.getClient().execute().ps({});
+      this.processes.set(await this.api.getClient().execute().ps({}));
     } catch (error) {
-      this.result = this.error.convert(error);
+      this.result.set(this.error.convert(error));
     }
-    this.loading = false;
+    this.loading.set(false);
   }
 
 }

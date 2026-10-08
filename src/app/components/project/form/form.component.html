@@ -1,67 +1,83 @@
 
 <h1>
-  <a [routerLink]="getListLink()">Project</a> /
-  <a [routerLink]="getDetailLink(entity?.id)">{{ entity?.name }}</a> /
-  <ng-container *ngIf="mode === 1">Create</ng-container>
-  <ng-container *ngIf="mode === 2">Update</ng-container>
-  <ng-container *ngIf="mode === 3">Delete</ng-container>
+  <a (click)="doList()">Project</a> /
+  <a (click)="doDetail(entity().id)">{{ entity().name }}</a> /
+  <fusio-form-breadcrumb [mode]="mode"></fusio-form-breadcrumb>
 </h1>
 
-<fusio-message [response]="response"></fusio-message>
+<fusio-message [response]="response()"></fusio-message>
 
-<form *ngIf="entity" class="mb-5">
-  <div class="mb-3 row">
-    <label for="name" class="col-sm-2 col-form-label fw-bold">Name</label>
-    <div class="col-sm-10">
-      <div class="input-group">
-        <input type="text" id="name" name="name" [(ngModel)]="entity.name" [disabled]="mode === 3" class="form-control">
-        <button class="btn btn-outline-secondary" type="button" [ngbPopover]="nameHelp"><i class="bi bi-question"></i></button>
-        <ng-template #nameHelp>Unique name of the action</ng-template>
+@if (entity(); as entity) {
+  <form class="mb-5">
+    <div class="mb-3 row">
+      <label for="name" class="col-sm-2 col-form-label fw-bold">Name</label>
+      <div class="col-sm-10">
+        <div class="input-group">
+          <input type="text" id="name" name="name" [(ngModel)]="entity.name" [disabled]="mode === 3" class="form-control">
+          <button class="btn btn-outline-secondary" type="button" [ngbPopover]="nameHelp"><i class="bi bi-question"></i></button>
+          <ng-template #nameHelp>Unique name of the action</ng-template>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="mb-3 row" *ngIf="mode === 1">
-    <label for="preset" class="col-sm-2 col-form-label fw-bold">Preset</label>
-    <div class="col-sm-10">
-      <select id="preset" name="preset" [(ngModel)]="preset" (ngModelChange)="loadPreset()" class="form-select">
-        <option [ngValue]="undefined">Custom</option>
-        <ng-container *ngFor="let preset of presets">
-          <ng-container *ngIf="preset.displayName && preset.displayName.indexOf('-') === -1">
-            <option [ngValue]="preset.name">{{ preset.displayName }}</option>
-          </ng-container>
-        </ng-container>
-      </select>
+    @if (mode === 1) {
+      <div class="mb-3 row" >
+        <label for="preset" class="col-sm-2 col-form-label fw-bold">Preset</label>
+        <div class="col-sm-10">
+          <select id="preset" name="preset" [(ngModel)]="preset" (ngModelChange)="loadPreset()" class="form-select">
+            <option [ngValue]="undefined">Custom</option>
+            @for (preset of presets(); track $index) {
+              @if (preset.displayName && preset.displayName.indexOf('-') === -1) {
+                <option [ngValue]="preset.name">{{ preset.displayName }}</option>
+              }
+            }
+          </select>
+        </div>
+      </div>
+    }
+    @if (mode === 1 && variants().length > 0) {
+      <div class="mb-3 row">
+        <label for="preset" class="col-sm-2 col-form-label fw-bold">Variant</label>
+        <div class="col-sm-10">
+          <select id="preset" name="preset" [(ngModel)]="variant" (ngModelChange)="loadVariant()" class="form-select">
+            <option [ngValue]="preset()">Default</option>
+            @for (variant of variants(); track $index) {
+              <option [ngValue]="variant.name">{{ variant.displayName }}</option>
+            }
+          </select>
+        </div>
+      </div>
+    }
+    @if (entity.apps) {
+      <app-project-apps [(active)]="active" [(apps)]="entity.apps" [disabled]="mode === 3"></app-project-apps>
+    }
+    <div class="btn-group" role="group">
+      @if (mode === 1) {
+        @if (!loading()) {
+          <button type="button" class="btn btn-primary" (click)="doCreate(entity)">Create</button>
+        }
+        @else {
+          <button type="button" class="btn btn-primary" disabled><span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span role="status" class="ms-1">Creating ...</span></button>
+        }
+      }
+      @if (mode === 2) {
+        @if (!loading()) {
+          <button type="button" class="btn btn-primary" (click)="doUpdate(entity)">Update</button>
+        }
+        @else {
+          <button type="button" class="btn btn-primary" disabled><span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span role="status" class="ms-1">Updating ...</span></button>
+        }
+      }
+      @if (mode === 3) {
+        @if (!loading()) {
+          <button type="button" class="btn btn-danger" (click)="confirmDelete(deleteModal, entity)">Delete</button>
+        }
+        @else {
+          <button type="button" class="btn btn-danger" disabled><span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span role="status" class="ms-1">Deleting ...</span></button>
+        }
+      }
     </div>
-  </div>
-  <div class="mb-3 row" *ngIf="mode === 1 && variants && variants.length > 0">
-    <label for="preset" class="col-sm-2 col-form-label fw-bold">Variant</label>
-    <div class="col-sm-10">
-      <select id="preset" name="preset" [(ngModel)]="variant" (ngModelChange)="loadVariant()" class="form-select">
-        <option [ngValue]="preset">Default</option>
-        <ng-container *ngFor="let variant of variants">
-          <option [ngValue]="variant.name">{{ variant.displayName }}</option>
-        </ng-container>
-      </select>
-    </div>
-  </div>
-  <ng-container *ngIf="entity.apps">
-    <app-project-apps [active]="active" [apps]="entity.apps" (dataChange)="entity.apps = $event" [disabled]="mode === 3"></app-project-apps>
-  </ng-container>
-  <div class="btn-group" role="group">
-    <ng-container *ngIf="mode === 1">
-      <button type="button" class="btn btn-primary" *ngIf="!loading" (click)="doCreate(entity)">Create</button>
-      <button type="button" class="btn btn-primary" disabled *ngIf="loading"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span role="status" class="ms-1">Creating ...</span></button>
-    </ng-container>
-    <ng-container *ngIf="mode === 2">
-      <button type="button" class="btn btn-primary" *ngIf="!loading" (click)="doUpdate(entity)">Update</button>
-      <button type="button" class="btn btn-primary" disabled *ngIf="loading"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span role="status" class="ms-1">Updating ...</span></button>
-    </ng-container>
-    <ng-container *ngIf="mode === 3">
-      <button type="button" class="btn btn-danger" *ngIf="!loading" (click)="confirmDelete(deleteModal, entity)">Delete</button>
-      <button type="button" class="btn btn-danger" disabled *ngIf="loading"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span><span role="status" class="ms-1">Deleting ...</span></button>
-    </ng-container>
-  </div>
-</form>
+  </form>
+}
 
 <ng-template #deleteModal let-modal>
   <div class="modal-header">

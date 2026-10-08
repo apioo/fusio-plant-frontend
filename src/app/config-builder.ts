@@ -49,6 +49,10 @@ export class ConfigBuilder {
           title: 'Stats',
           icon: 'bi-bar-chart-fill',
           path: '/insight/stats',
+        }, {
+          title: 'Munin',
+          icon: 'bi-activity',
+          path: '/insight/munin',
         }]
       }, {
         title: 'Action',
@@ -65,30 +69,6 @@ export class ConfigBuilder {
           title: 'Certbot',
           icon: 'bi-shield-lock-fill',
           path: '/action/certbot',
-        }]
-      }, {
-        title: 'Munin',
-        visible: false,
-        children: [{
-          title: 'Disk',
-          icon: 'bi-image-fill',
-          path: '/munin/disk',
-        }, {
-          title: 'Network',
-          icon: 'bi-cpu-fill',
-          path: '/munin/network',
-        }, {
-          title: 'Processes',
-          icon: 'bi-bar-chart-fill',
-          path: '/munin/processes',
-        }, {
-          title: 'Radio',
-          icon: 'bi-bar-chart-fill',
-          path: '/munin/radio',
-        }, {
-          title: 'System',
-          icon: 'bi-bar-chart-fill',
-          path: '/munin/system',
         }]
       }],
     }

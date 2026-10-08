@@ -23,8 +23,8 @@ import {AppsComponent} from "../apps/apps.component";
 })
 export class FormComponent extends Form<Project> {
 
-  preset = model<string|undefined>(undefined);
-  variant = model<string|undefined>(undefined);
+  preset = signal<string|undefined>(undefined);
+  variant = signal<string|undefined>(undefined);
   presets = signal<Array<Preset>>([]);
   active = model<number|undefined>(undefined);
   deleteProjectName = model<string>('');
@@ -84,6 +84,10 @@ export class FormComponent extends Form<Project> {
   protected override async onLoad() {
     const collection = await this.api.getClient().preset().getAll();
     this.presets.set(collection.entry || []);
+
+    if (this.active() === undefined) {
+      this.active.set(0);
+    }
   }
 
   protected getService(): ProjectService {
@@ -96,16 +100,22 @@ export class FormComponent extends Form<Project> {
       return;
     }
 
-    const preset = await this.api.getClient().preset().get(selectedPreset);
-    /*
-    this.entity.set((entity) => {
-      entity.apps = preset.apps;
-      return entity;
-    });
-    */
+    this.loading.set(true);
 
-    this.variant.set(selectedPreset);
-    this.active.set(0);
+    try {
+      const preset = await this.api.getClient().preset().get(selectedPreset);
+
+      this.entity.update((entity) => {
+        entity.apps = preset.apps;
+        return entity;
+      });
+
+      this.active.set(0);
+    } catch (error) {
+      this.response.set(this.error.convert(error));
+    }
+
+    this.loading.set(false);
   }
 
   async loadVariant() {
@@ -114,14 +124,22 @@ export class FormComponent extends Form<Project> {
       return;
     }
 
-    const preset = await this.api.getClient().preset().get(selectedVariant)
+    this.loading.set(true);
 
-    this.entity.update((entity) => {
-      entity.apps = preset.apps;
-      return entity;
-    });
+    try {
+      const preset = await this.api.getClient().preset().get(selectedVariant)
 
-    this.active.set(0);
+      this.entity.update((entity) => {
+        entity.apps = preset.apps;
+        return entity;
+      });
+
+      this.active.set(0);
+    } catch (error) {
+      this.response.set(this.error.convert(error));
+    }
+
+    this.loading.set(false);
   }
 
 }

@@ -35,7 +35,7 @@ export class AppsComponent {
 
   add() {
     const newApp: ProjectApp = {
-      name: 'app-' + (this.apps().length + 1),
+      name: 'app' + (this.apps().length + 1),
       image: '',
       domains: [],
       cache: false,

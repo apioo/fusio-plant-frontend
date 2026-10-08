@@ -3,8 +3,8 @@
  * {@link https://sdkgen.app}
  */
 
-import {Collection} from "./Collection";
-import {DockerStatistic} from "./DockerStatistic";
+import type {Collection} from "./Collection";
+import type {DockerStatistic} from "./DockerStatistic";
 
 /**
  * A collection of all statistics

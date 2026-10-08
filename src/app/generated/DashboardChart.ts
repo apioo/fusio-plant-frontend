@@ -3,7 +3,7 @@
  * {@link https://sdkgen.app}
  */
 
-import {DashboardChartSeries} from "./DashboardChartSeries";
+import type {DashboardChartSeries} from "./DashboardChartSeries";
 
 export interface DashboardChart {
     labels?: Array<string>

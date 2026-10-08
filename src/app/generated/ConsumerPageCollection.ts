@@ -3,9 +3,12 @@
  * {@link https://sdkgen.app}
  */
 
-import {CommonCollection} from "./CommonCollection";
-import {ConsumerPage} from "./ConsumerPage";
+import type {CommonCollection} from "./CommonCollection";
+import type {ConsumerPage} from "./ConsumerPage";
 
+/**
+ * Collection of content page entries
+ */
 export interface ConsumerPageCollection extends CommonCollection<ConsumerPage> {
 }
 

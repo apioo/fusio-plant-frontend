@@ -3,7 +3,7 @@
  * {@link https://sdkgen.app}
  */
 
-import {DashboardChart} from "./DashboardChart";
+import type {DashboardChart} from "./DashboardChart";
 
 /**
  * All dashboard statistics

@@ -3,10 +3,14 @@
  * {@link https://sdkgen.app}
  */
 
-import {BackendApp} from "./BackendApp";
-import {CommonMetadata} from "./CommonMetadata";
+import type {BackendApp} from "./BackendApp";
+import type {CommonMetadata} from "./CommonMetadata";
 
+/**
+ * This object represents a user
+ */
 export interface BackendUser {
+    kind?: string
     id?: number
     roleId?: number
     planId?: number

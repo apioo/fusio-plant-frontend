@@ -3,9 +3,12 @@
  * {@link https://sdkgen.app}
  */
 
-import {CommonCollection} from "./CommonCollection";
-import {ConsumerTransaction} from "./ConsumerTransaction";
+import type {CommonCollection} from "./CommonCollection";
+import type {ConsumerTransaction} from "./ConsumerTransaction";
 
+/**
+ * Collection of transaction records
+ */
 export interface ConsumerTransactionCollection extends CommonCollection<ConsumerTransaction> {
 }
 

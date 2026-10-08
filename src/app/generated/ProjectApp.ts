@@ -3,7 +3,7 @@
  * {@link https://sdkgen.app}
  */
 
-import {ProjectAppVolume} from "./ProjectAppVolume";
+import type {ProjectAppVolume} from "./ProjectAppVolume";
 
 /**
  * An app of a project

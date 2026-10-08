@@ -3,8 +3,11 @@
  * {@link https://sdkgen.app}
  */
 
-import {ConsumerScopeCategoryScope} from "./ConsumerScopeCategoryScope";
+import type {ConsumerScopeCategoryScope} from "./ConsumerScopeCategoryScope";
 
+/**
+ * Category grouping related API scopes together
+ */
 export interface ConsumerScopeCategory {
     id?: number
     name?: string

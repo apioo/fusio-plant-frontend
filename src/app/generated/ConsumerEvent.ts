@@ -3,9 +3,13 @@
  * {@link https://sdkgen.app}
  */
 
-import {CommonMetadata} from "./CommonMetadata";
+import type {CommonMetadata} from "./CommonMetadata";
 
+/**
+ * Represents an event trigger definition within the platform
+ */
 export interface ConsumerEvent {
+    kind?: string
     id?: number
     name?: string
     description?: string

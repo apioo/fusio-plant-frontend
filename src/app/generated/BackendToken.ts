@@ -3,7 +3,11 @@
  * {@link https://sdkgen.app}
  */
 
+/**
+ * This object represents a token, this an access token which was requested by a user
+ */
 export interface BackendToken {
+    kind?: string
     id?: number
     status?: number
     name?: string

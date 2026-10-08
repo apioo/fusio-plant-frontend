@@ -3,10 +3,14 @@
  * {@link https://sdkgen.app}
  */
 
-import {ConsumerUserPlan} from "./ConsumerUserPlan";
-import {CommonMetadata} from "./CommonMetadata";
+import type {ConsumerUserPlan} from "./ConsumerUserPlan";
+import type {CommonMetadata} from "./CommonMetadata";
 
+/**
+ * User profile and subscription status details
+ */
 export interface ConsumerUserAccount {
+    kind?: string
     id?: number
     planId?: number
     status?: number

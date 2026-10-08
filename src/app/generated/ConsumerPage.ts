@@ -3,9 +3,13 @@
  * {@link https://sdkgen.app}
  */
 
-import {CommonMetadata} from "./CommonMetadata";
+import type {CommonMetadata} from "./CommonMetadata";
 
+/**
+ * Content page definition for developer portal documentation
+ */
 export interface ConsumerPage {
+    kind?: string
     id?: number
     title?: string
     slug?: string

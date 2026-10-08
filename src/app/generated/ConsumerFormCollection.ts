@@ -3,9 +3,12 @@
  * {@link https://sdkgen.app}
  */
 
-import {CommonCollection} from "./CommonCollection";
-import {ConsumerForm} from "./ConsumerForm";
+import type {CommonCollection} from "./CommonCollection";
+import type {ConsumerForm} from "./ConsumerForm";
 
+/**
+ * Collection of dynamic form definitions
+ */
 export interface ConsumerFormCollection extends CommonCollection<ConsumerForm> {
 }
 

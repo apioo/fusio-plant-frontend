@@ -3,9 +3,13 @@
  * {@link https://sdkgen.app}
  */
 
-import {CommonMetadata} from "./CommonMetadata";
+import type {CommonMetadata} from "./CommonMetadata";
 
+/**
+ * Dynamic form configuration entity
+ */
 export interface ConsumerForm {
+    kind?: string
     id?: number
     name?: string
     action?: string

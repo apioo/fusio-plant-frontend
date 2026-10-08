@@ -3,9 +3,13 @@
  * {@link https://sdkgen.app}
  */
 
-import {ConsumerWebhookResponse} from "./ConsumerWebhookResponse";
+import type {ConsumerWebhookResponse} from "./ConsumerWebhookResponse";
 
+/**
+ * Webhook endpoint subscription definition
+ */
 export interface ConsumerWebhook {
+    kind?: string
     id?: number
     status?: number
     event?: string

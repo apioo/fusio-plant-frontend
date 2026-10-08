@@ -13,6 +13,7 @@ import {ConsumerTag} from "./ConsumerTag";
 import {DashboardTag} from "./DashboardTag";
 import {ExecuteTag} from "./ExecuteTag";
 import {MetaTag} from "./MetaTag";
+import {MuninTag} from "./MuninTag";
 import {PresetTag} from "./PresetTag";
 import {ProjectTag} from "./ProjectTag";
 import {SystemTag} from "./SystemTag";
@@ -66,6 +67,14 @@ export class Client extends ClientAbstract {
         );
     }
 
+    public munin(): MuninTag
+    {
+        return new MuninTag(
+            this.httpClient,
+            this.parser
+        );
+    }
+
     public preset(): PresetTag
     {
         return new PresetTag(
@@ -95,6 +104,6 @@ export class Client extends ClientAbstract {
 
     public static buildAnonymous(): Client
     {
-        return new Client('http://localhost', new Anonymous());
+        return new Client('http://127.0.0.1/projects/fusio-projects/plant/backend/public', new Anonymous());
     }
 }

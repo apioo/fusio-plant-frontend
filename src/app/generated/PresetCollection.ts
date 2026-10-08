@@ -3,8 +3,8 @@
  * {@link https://sdkgen.app}
  */
 
-import {Collection} from "./Collection";
-import {Preset} from "./Preset";
+import type {Collection} from "./Collection";
+import type {Preset} from "./Preset";
 
 /**
  * A collection of all presets

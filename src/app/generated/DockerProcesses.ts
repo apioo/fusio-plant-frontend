@@ -3,8 +3,8 @@
  * {@link https://sdkgen.app}
  */
 
-import {Collection} from "./Collection";
-import {DockerProcess} from "./DockerProcess";
+import type {Collection} from "./Collection";
+import type {DockerProcess} from "./DockerProcess";
 
 /**
  * A collection of all processes

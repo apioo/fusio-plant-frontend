@@ -3,10 +3,11 @@
  * {@link https://sdkgen.app}
  */
 
-import {SystemAboutApps} from "./SystemAboutApps";
-import {SystemAboutLink} from "./SystemAboutLink";
+import type {SystemAboutApps} from "./SystemAboutApps";
+import type {SystemAboutLink} from "./SystemAboutLink";
 
 export interface SystemAbout {
+    kind?: string
     apiVersion?: string
     title?: string
     description?: string

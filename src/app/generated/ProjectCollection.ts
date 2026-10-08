@@ -3,8 +3,8 @@
  * {@link https://sdkgen.app}
  */
 
-import {Collection} from "./Collection";
-import {Project} from "./Project";
+import type {Collection} from "./Collection";
+import type {Project} from "./Project";
 
 /**
  * A collection of all projects

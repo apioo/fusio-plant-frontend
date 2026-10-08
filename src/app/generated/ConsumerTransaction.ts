@@ -3,9 +3,13 @@
  * {@link https://sdkgen.app}
  */
 
-import {ConsumerPlan} from "./ConsumerPlan";
+import type {ConsumerPlan} from "./ConsumerPlan";
 
+/**
+ * Billing transaction record for quota or subscription purchases
+ */
 export interface ConsumerTransaction {
+    kind?: string
     id?: number
     userId?: number
     planId?: number

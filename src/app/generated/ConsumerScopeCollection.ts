@@ -3,9 +3,12 @@
  * {@link https://sdkgen.app}
  */
 
-import {CommonCollection} from "./CommonCollection";
-import {ConsumerScope} from "./ConsumerScope";
+import type {CommonCollection} from "./CommonCollection";
+import type {ConsumerScope} from "./ConsumerScope";
 
+/**
+ * Collection of API permission scopes
+ */
 export interface ConsumerScopeCollection extends CommonCollection<ConsumerScope> {
 }
 

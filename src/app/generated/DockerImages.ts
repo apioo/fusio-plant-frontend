@@ -3,8 +3,8 @@
  * {@link https://sdkgen.app}
  */
 
-import {Collection} from "./Collection";
-import {DockerImage} from "./DockerImage";
+import type {Collection} from "./Collection";
+import type {DockerImage} from "./DockerImage";
 
 /**
  * A collection of all images

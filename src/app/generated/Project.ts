@@ -3,7 +3,7 @@
  * {@link https://sdkgen.app}
  */
 
-import {ProjectApp} from "./ProjectApp";
+import type {ProjectApp} from "./ProjectApp";
 
 /**
  * A project is logical unit which contains multiple apps i.e. a backend and database app

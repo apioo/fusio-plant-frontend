@@ -3,9 +3,12 @@
  * {@link https://sdkgen.app}
  */
 
-import {CommonCollection} from "./CommonCollection";
-import {ConsumerLog} from "./ConsumerLog";
+import type {CommonCollection} from "./CommonCollection";
+import type {ConsumerLog} from "./ConsumerLog";
 
+/**
+ * Collection of access log records
+ */
 export interface ConsumerLogCollection extends CommonCollection<ConsumerLog> {
 }
 

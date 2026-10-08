@@ -3,8 +3,11 @@
  * {@link https://sdkgen.app}
  */
 
-import {ConsumerScope} from "./ConsumerScope";
+import type {ConsumerScope} from "./ConsumerScope";
 
+/**
+ * Metadata for an OAuth authorization request screen
+ */
 export interface ConsumerAuthorizeMeta {
     name?: string
     url?: string

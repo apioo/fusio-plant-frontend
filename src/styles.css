@@ -1,8 +1,4 @@
 
-@import "~bootstrap-icons/font/bootstrap-icons";
-@import "~bootstrap/dist/css/bootstrap.min";
-@import "~@vscode/codicons/dist/codicon";
-
 body
 {
   background-color:#fff;
@@ -35,26 +31,34 @@ pre
   color:#fff;
 }
 
+.fusio-instance
+{
+  background-color:#eee;
+  position:fixed;
+  width:180px;
+  height:100%;
+  overflow-y:auto;
+  border-right:2px solid #222;
+}
+
 .fusio-navigation
 {
   background-color:#021c35;
   position:fixed;
+  left:0;
   height:100%;
   overflow-y:auto;
+}
+
+.fusio-navigation-instance
+{
+  left:180px;
 }
 
 .fusio-navigation > nav
 {
   width:180px;
-  float:left;
   padding:0 15px;
-}
-
-@media (max-width:767px) {
-  .fusio-navigation > nav
-  {
-    width:110px;
-  }
 }
 
 .fusio-navigation > nav > h1
@@ -133,11 +137,9 @@ pre
   margin-left:180px;
 }
 
-@media (max-width:767px) {
-  .fusio-container
-  {
-    margin-left:110px;
-  }
+.fusio-container-instance
+{
+  margin-left:360px;
 }
 
 .fusio-content
@@ -161,9 +163,11 @@ pre
   background-image: linear-gradient(to bottom,#444 0,#222 100%);
 }
 
-.fusio-content > div > h1 > a
+.fusio-content > * > h1 > a
 {
   color:#eee;
+  text-decoration:underline!important;
+  cursor:pointer;
 }
 
 .fusio-search

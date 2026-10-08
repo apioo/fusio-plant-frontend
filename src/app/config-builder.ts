@@ -1,4 +1,4 @@
-import {Config} from "ngx-fusio-sdk/lib/config/config";
+import {Config} from "ngx-fusio-sdk";
 
 export class ConfigBuilder {
 
@@ -16,7 +16,7 @@ export class ConfigBuilder {
     return {
       baseUrl: baseUrl,
       title: 'Fusio Plant',
-      version: '0.1',
+      version: '0.2',
       logo: 'fusio_64px.png',
       appKey: appKey && appKey !== '${APP_KEY}' ? appKey : undefined,
       homePath: '/',
@@ -65,6 +65,30 @@ export class ConfigBuilder {
           title: 'Certbot',
           icon: 'bi-shield-lock-fill',
           path: '/action/certbot',
+        }]
+      }, {
+        title: 'Munin',
+        visible: false,
+        children: [{
+          title: 'Disk',
+          icon: 'bi-image-fill',
+          path: '/munin/disk',
+        }, {
+          title: 'Network',
+          icon: 'bi-cpu-fill',
+          path: '/munin/network',
+        }, {
+          title: 'Processes',
+          icon: 'bi-bar-chart-fill',
+          path: '/munin/processes',
+        }, {
+          title: 'Radio',
+          icon: 'bi-bar-chart-fill',
+          path: '/munin/radio',
+        }, {
+          title: 'System',
+          icon: 'bi-bar-chart-fill',
+          path: '/munin/system',
         }]
       }],
     }

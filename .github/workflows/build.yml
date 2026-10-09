@@ -22,4 +22,4 @@ jobs:
         with:
           name: plant
           include-hidden-files: true
-          path: dist/plant
+          path: dist/plant/browser
